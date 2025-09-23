@@ -194,15 +194,6 @@
 
 ---
 
-## System Resources (Pi 4)
-
-- **RAM:** ~**2.8 GB** typical (after optimizations)  
-- **Storage:** ~**400 MB** core files  
-- **Services:** Rhasspy (Docker), Flask, UxPlay, MagicMirror (systemd‑managed)
-
-
----
-
 ## License & Reuse
 
 Personal project; individual modules may carry their own licenses. Use ideas/components as you like for your setup.
@@ -212,4 +203,3 @@ Personal project; individual modules may carry their own licenses. Use ideas/com
 **One‑liner:**  
 *A Pi‑powered, voice‑first, sensor‑aware dashboard that fuses streaming speech, structured sports/fantasy telemetry, and live content into a resilient, real‑time display—built end‑to‑end with careful attention to data pipelines and edge performance.*
 
-*Last updated: December 2024 — enhanced voice assistant, icon scenes, live game tracking*
