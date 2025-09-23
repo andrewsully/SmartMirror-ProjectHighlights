@@ -74,7 +74,7 @@
 - **Sports telemetry:** live possession, down/distance, red‑zone indicators, standings, fantasy matchups  
   <table>
   <tr>
-  <td width="33%"><img src="examples/football_page.png" width="260" alt="Football page"><br><em>Scores & standings</em></td>
+  <td width="33%"><img src="examples/football_page.png" width="260" alt="Football page"><br><em>Scores & standings - A comprehensive weekly view of the most important NFL information, including upcoming matchups for your favorite team and all primetime game times (top left), auto-updating news stories via RSS feeds (top right), and standings for all NFL divisions (bottom).</em></td>
   <td width="33%"><img src="examples/all_games_live.png" width="260" alt="All games live"><br><em>All games live</em></td>
   <td width="33%"><img src="examples/preview%20of%20all%20games%20live%20with%20dummy%20active%20game%20data.png" width="260" alt="Drive detail"><br><em>Drive detail</em></td>
   </tr>
