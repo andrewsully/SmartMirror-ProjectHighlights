@@ -84,7 +84,7 @@
   <table>
   <tr>
   <td width="50%"><img src="examples/dad_joke_example.png" width="340" alt="Dad joke / facts"><br><em>Jokes & facts rotation</em></td>
-  <td width="50%"><img src="examples/music%20page.png" width="340" alt="Music page"><br><em>Music scene</em></td>
+  <td width="50%"><img src="examples/music%20page.png" width="340" alt="Music page"><br><em>Music scene with automatic AirPlay detection, live album art extraction from WiFi-streamed music, and audio output through powerful mirror speakers. Features rotating background imagery from a curated collection and a pulsing album cover that syncs with playback. This scene automatically activates whenever music is streamed to the mirror.</em></td>
   </tr>
   </table>
 
