@@ -9,11 +9,11 @@
 <table>
 <tr>
 <td width="50%">
-<img src="MagicMirror/examples/mirror_labeled.png" width="420" alt="Mirror Components Labeled">
+<img src="examples/mirror_labeled.png" width="420" alt="Mirror Components Labeled">
 <br><em>Internal components</em>
 </td>
 <td width="50%">
-<img src="MagicMirror/examples/photo%20of%20mirror%20homepage%20from%20side.png" width="420" alt="Homepage Photo">
+<img src="examples/photo%20of%20mirror%20homepage%20from%20side.png" width="420" alt="Homepage Photo">
 <br><em>Live homepage</em>
 </td>
 </tr>
@@ -69,22 +69,22 @@
 ## Selected Results & Demos
 
 - **Real‑time voice UI:** word‑by‑word transcript synced to speech; clean session close via `hermes/tts/sayFinished`  
-  <img src="MagicMirror/examples/example%20of%20voice%20assistant%20response.png" width="520" alt="Voice Response">
+  <img src="examples/example%20of%20voice%20assistant%20response.png" width="520" alt="Voice Response">
 
 - **Sports telemetry:** live possession, down/distance, red‑zone indicators, standings, fantasy matchups  
   <table>
   <tr>
-  <td width="33%"><img src="MagicMirror/examples/football_page.png" width="260" alt="Football page"><br><em>Scores & standings</em></td>
-  <td width="33%"><img src="MagicMirror/examples/all_games_live.png" width="260" alt="All games live"><br><em>All games live</em></td>
-  <td width="33%"><img src="MagicMirror/examples/preview%20of%20all%20games%20live%20with%20dummy%20active%20game%20data.png" width="260" alt="Drive detail"><br><em>Drive detail</em></td>
+  <td width="33%"><img src="examples/football_page.png" width="260" alt="Football page"><br><em>Scores & standings</em></td>
+  <td width="33%"><img src="examples/all_games_live.png" width="260" alt="All games live"><br><em>All games live</em></td>
+  <td width="33%"><img src="examples/preview%20of%20all%20games%20live%20with%20dummy%20active%20game%20data.png" width="260" alt="Drive detail"><br><em>Drive detail</em></td>
   </tr>
   </table>
 
 - **Entertainment & music:** AirPlay triggers scene swap and displays album art  
   <table>
   <tr>
-  <td width="50%"><img src="MagicMirror/examples/dad_joke_example.png" width="340" alt="Dad joke / facts"><br><em>Jokes & facts rotation</em></td>
-  <td width="50%"><img src="MagicMirror/examples/music%20page.png" width="340" alt="Music page"><br><em>Music scene</em></td>
+  <td width="50%"><img src="examples/dad_joke_example.png" width="340" alt="Dad joke / facts"><br><em>Jokes & facts rotation</em></td>
+  <td width="50%"><img src="examples/music%20page.png" width="340" alt="Music page"><br><em>Music scene</em></td>
   </tr>
   </table>
 
@@ -92,14 +92,14 @@
 
 ## Gallery (More Screenshots)
 
-> A visual tour of core pages and states. (All images are in `MagicMirror/examples/`.)
+> A visual tour of core pages and states. (All images are in `examples/`.)
 
 | View | Image |
 |---|---|
-| **Live Scores (compact)** | <img src="MagicMirror/examples/live_scores_small.png" width="360" alt="Live Scores Compact"> |
-| **Fantasy Standings** | <img src="MagicMirror/examples/fantasy_standings.png" width="360" alt="Fantasy Standings"> |
-| **Mirror on Fantasy Page (photo)** | <img src="MagicMirror/examples/photo%20of%20mirror%20on%20fantasy%20age.png" width="420" alt="Fantasy page on device"> |
-| **Clown Opponent Mode (easter egg)** | <img src="MagicMirror/examples/clown%20mode%20example.png" width="360" alt="Clown Mode"> |
+| **Live Scores (compact)** | <img src="examples/live_scores_small.png" width="360" alt="Live Scores Compact"> |
+| **Fantasy Standings** | <img src="examples/fantasy_standings.png" width="360" alt="Fantasy Standings"> |
+| **Mirror on Fantasy Page (photo)** | <img src="examples/photo%20of%20mirror%20on%20fantasy%20age.png" width="420" alt="Fantasy page on device"> |
+| **Clown Opponent Mode (easter egg)** | <img src="examples/clown%20mode%20example.png" width="360" alt="Clown Mode"> |
 
 ---
 
@@ -130,10 +130,10 @@
 <table>
 <tr>
 <td width="50%">
-<img src="MagicMirror/examples/mirror_labeled.png" width="420" alt="Mirror Components Labeled (repeat for build context)">
+<img src="examples/mirror_labeled.png" width="420" alt="Mirror Components Labeled (repeat for build context)">
 </td>
 <td width="50%">
-<img src="MagicMirror/examples/photo%20of%20mirror%20homepage%20from%20side.png" width="420" alt="Mirror in place (repeat for build context)">
+<img src="examples/photo%20of%20mirror%20homepage%20from%20side.png" width="420" alt="Mirror in place (repeat for build context)">
 </td>
 </tr>
 </table>
