@@ -1,0 +1,284 @@
+/*
+ * MMM-NFLMinimal
+ * Minimal NFL scoreboard - just logos, scores, and possession
+ */
+
+.MMM-NFLMinimal {
+    text-align: center;
+}
+
+.MMM-NFLMinimal .loading {
+    font-size: 14px;
+    opacity: 0.6;
+    color: #ffffff;
+}
+
+/* Two-column layout */
+.columns-container {
+    display: flex;
+    gap: 40px; /* Space between columns */
+    justify-content: center;
+}
+
+.games-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Space between games */
+    flex: 1;
+    max-width: 3500px;
+}
+
+/* Fixed-size game row */
+.game-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px; /* Fixed width for all matchups */
+    height: 50px; /* Fixed height for all matchups */
+    padding: 2px;
+    /* background: rgba(255, 255, 255, 0.09);  was .02 */
+    border-radius: 6px;
+    margin: 0 auto; /* Center each row */
+    gap: 0px; /* No gap between team sides and center */
+    position: relative; /* Enable absolute positioning for background */
+}
+
+/* Team sides (left and right) */
+.team-side {
+    display: flex;
+    align-items: center;
+    gap: 0px; /* No gap - elements touch each other */
+    width: 120px; /* Slightly wider for bigger elements */
+}
+
+/* Add specific spacing between logo and score */
+.team-side.left .team-logo {
+    margin-left: 8px; /* 8px gap between logo and score (right side) */
+}
+
+.team-side.right .team-logo {
+    margin-right: 8px; /* 8px gap between score and logo (left side) */
+}
+
+.team-side.left {
+    justify-content: flex-end; /* Score, logo, possession */
+}
+
+.team-side.right {
+    justify-content: flex-start; /* Possession, logo, score */
+}
+
+  .team-logo {
+      width: 50px; /* Bigger logos */
+      height: 50px; /* Bigger logos */
+      object-fit: contain;
+      border: none; /* Clean logos */
+      border-radius: 0; /* Square logos */
+      background-color: transparent; /* No background on logo */
+      position: relative; /* For positioning circle behind */
+      z-index: 2; /* Above the circle background */
+  }
+
+.team-score {
+    font-size: 30px; /* MUCH bigger score font */
+    font-weight: bold;
+    color: #ffffff;
+    min-width: 30px; /* Wider for bigger numbers */
+    text-align: center;
+}
+
+.possession-indicator {
+    font-size: 12px;
+    font-weight: bold;
+    min-width: 8px; /* Reserve space even when empty */
+    text-align: center;
+}
+
+.possession-indicator.normal {
+    color: #00ff00; /* Green dot for normal possession */
+}
+
+.possession-indicator.redzone {
+    color: #ff0000; /* Red dot for red zone possession */
+}
+
+/* Center info container with extending background */
+.center-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px; /* Fixed width for center */
+    height: 100%;
+    position: relative; /* Enable pseudo-element positioning */
+}
+
+/* Dedicated background rectangle */
+.matchup-background {
+    position: absolute;
+    top: 50%; /* Center vertically in row */
+    left: 50%; /* Center horizontally in row */
+    transform: translate(-50%, -50%); /* Perfect centering */
+    width: 140px; /* Span from logo center to logo center */
+    height: 40px; /* Height of background rectangle */
+    background: rgb(18, 18, 18); /* Subtle background */
+    border-radius: 10px;
+    z-index: 0; /* Behind text but above row background */
+}
+
+/* Logo container for circle background */
+.logo-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Circle background behind logo */
+.logo-circle {
+    position: absolute;
+    width: 30px; /* 30px circle as requested */
+    height: 30px; /* 30px circle as requested */
+    background-color: rgb(18, 18, 18); /* Dark circle */
+    border-radius: 50%; /* Perfect circle */
+    z-index: 1; /* Behind logo but above other content */
+}
+
+/* Ensure content appears above background */
+.team-side,
+.center-info {
+    position: relative;
+    z-index: 1; /* Above the background rectangle */
+}
+
+.top-info {
+    font-size: 16px; /* Slightly smaller for tighter layout */
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 1px; /* Tighter spacing */
+}
+
+.top-info.game-clock {
+    color: #ffff00; /* Yellow for live game clock */
+}
+
+.top-info.game-day {
+    color: #ffffff; /* White for day abbreviation */
+}
+
+.bottom-info {
+    font-size: 12px; /* Smaller for tighter layout */
+    color: #ffffff;
+    line-height: 1;
+    text-align: center;
+    min-height: 8px; /* Smaller reserved space */
+}
+
+.bottom-info.down-distance {
+    font-weight: bold; /* Bold for down & distance */
+}
+
+.bottom-info.game-time {
+    font-weight: normal; /* Not bold for game time */
+    color: #cccccc; /* Slightly dimmer for game time */
+}
+
+/* Final game styling in center - simplified */
+.top-info.final-score {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    opacity: 0.6; /* All final score elements at 30% */
+}
+
+.bottom-info.final-text {
+    font-size: 8px;
+    font-weight: normal;
+    color: #cccccc !important;
+    opacity: 0.4; /* Match the score opacity */
+}
+
+/* All individual score elements inherit the 30% from parent */
+.winning-score-number,
+.losing-score-number,
+.tie-score-number,
+.losing-color,
+.tie-color,
+.score-separator {
+    /* No opacity needed - inherits 30% from .final-score parent */
+    color: #ffffff;
+    opacity: 0.3;
+    font-weight: 900;
+}
+
+.winning-score-number {
+    font-weight: 900;
+    color: #ffffff;
+    opacity: 1;
+}
+.bottom-info.final-text {
+    font-weight: normal;
+}
+
+.losing-score-number {
+    text-shadow: 0 0 10px #0000ff;
+}
+
+.tie-score-number {
+    text-shadow: 0 0 10px #000000;
+}
+
+/* Final game logos - smaller size */
+.game-row.final-game .team-logo {
+    width: 50px; /* Half size from 50px */
+    height: 50px; /* Half size from 50px */
+    filter: grayscale(100%); /* Black and white logos for final games */
+}
+
+/* Winning team styling */
+.winning-logo {
+    filter: grayscale(0%) !important; /* Restore color for winning team */
+    /* border: 2px solid rgba(255, 255, 255, 0.5) !important; White border 50% transparent */
+    /* background-color: black !important; No background */
+}
+
+
+.status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+}
+
+.time-remaining {
+    color: #ffff00; /* Yellow for game clock */
+    font-weight: bold;
+}
+
+.down-distance {
+    color: #ffffff;
+    font-size: 12px;
+}
+
+/* Remove redzone-indicator since we're using logo borders now */
+
+/* Make logos grayscale like the original */
+.team-logo.gray {
+    filter: grayscale(100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1080px) {
+    .team-logo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .score-container {
+        font-size: 30px;
+        min-width: 50px;
+    }
+}

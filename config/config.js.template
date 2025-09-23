@@ -1,0 +1,951 @@
+// Timing configuration variables
+const SCENE_DURATION = 30000; // 30 seconds per scene was 30000
+const LOADING_DURATION = 20000; // 20 seconds loading screen
+
+// NORMAL OPERATION VARIABLES
+const NORMAL_SCENE_DURATION = 30 * 1000; // 30 seconds per scene (normal)
+const NORMAL_FANTASY_UPDATE_INTERVAL = 30 * 60 * 1000; // 30 minutes for fantasy updates (normal)
+const NORMAL_NFL_UPDATE_INTERVAL = 30 * 60 * 1000; // 30 minutes for NFL updates (normal)
+const NORMAL_ENABLE_ANIMATIONS = true; // Enable animations (normal)
+
+// API STAGGERING - Prevent simultaneous API requests
+const API_STAGGER_FANTASY = 2000; // 2 seconds after base interval
+const API_STAGGER_NFL = 4000; // 4 seconds after base interval
+
+// DEMO MODE VARIABLES - Change these for recording demos
+const DEMO_SCENE_DURATION = 10 * 1000; // 10 seconds per scene for demo
+const DEMO_FANTASY_UPDATE_INTERVAL = 10 * 1000; // 10 seconds for fantasy updates
+const DEMO_NFL_UPDATE_INTERVAL = 5 * 1000; // 5 seconds for NFL updates
+const DEMO_DISABLE_ANIMATIONS = true; // Disable animations for smooth demo recording
+let config = 
+{
+  address: '0.0.0.0',
+  ipWhitelist: [
+    '127.0.0.1',
+    '::ffff:127.0.0.1',
+    '::1',
+    'YOUR_LOCAL_NETWORK/24'
+  ],
+  timeFormat: 12,
+  units: 'imperial',
+  modules: [
+  
+	  
+
+	  ////////////////////////////////////////////  MODULES FOR NAVIGATION AND SYSTEM FUNCTIONALITY
+	  {
+		  module: "alert",
+		  hiddenOnStart: true,
+	  },
+	  { module: "MMM-ScenesLinearBridge" },
+	  
+	  {
+		  module: "MMM-WakeWordIndicator",
+		  position: "fullscreen_above",
+		  config: {
+			  mqttHost: "localhost",
+			  mqttPort: 12183,
+			  wakeWord: "Janice",
+			  showDuration: 3000,
+			  listeningDuration: 10000,
+			  position: "fullscreen_above",
+			  showSpokenText: true,
+			  wordsPerMinute: 180,
+			  textDisplayDuration: 1000,
+			  ellipsisPauseMs: 500
+		  }
+	  },
+	  
+	  {
+		  module: "MMM-IntentHelper",
+		  position: "top_center",
+		  config: {
+			  mqttHost: "localhost",
+			  mqttPort: 12183,
+			  showDuration: 8000
+		  }
+	  },
+	  
+	  {
+		  module: "MMM-ClownModeHelper",
+		  config: {
+			  port: 8081,
+			  debug: false
+		  }
+	  },
+	  
+	  {
+		  module: "MMM-SmartScenes",
+		  config: {
+			  normalDuration: SCENE_DURATION,    // 30 seconds
+			  extendedDuration: 5 * 60 * 1000,   // 5 minutes
+			  debug: false
+		  }
+	  },
+
+	  {
+			module: "MMM-SimpleStats",
+			position: "bottom_right",
+			config: {
+				updateInterval: 10000,  // 10 seconds
+				showCpu: false,
+				showRam: false,
+				showDisk: false,
+				showTemp: true,
+				showVolume: true,
+				showIp: false,
+				showWifi: false,
+				fontSize: "14px",
+				color: "#ffffff"
+				// updateInterval: 10000,  // 10 seconds
+				// showCpu: true,
+				// showRam: true,
+				// showDisk: true,
+				// showTemp: true,
+				// showVolume: true,
+				// showIp: true,
+				// showWifi: true,
+				// fontSize: "14px",
+				// color: "#ffffff"
+			}
+		},
+	//   {
+	// 	  module: "MMM-GroveGestures",
+	// 	  position: "top_center",
+	// 	  classes: "homepage_page compliments_page football_page fantasy page music_page_paused",
+	// 	  hidden: true,  
+	// 	  config: {
+	// 	      autoStart: true,
+	// 	      verbose: false,
+	// 	      pythonPath: "/usr/bin/python",
+	// 	      gestureMapFromTo: {
+	// 		  Up: "UP",
+	// 		  Down: "DOWN",
+	// 		  Left: "RIGHT",
+	// 		  Right: "LEFT",
+	// 		  Forward: "FORWARD",
+	// 		  Backward: "BACKWARD",
+	// 		  Clockwise: "CLOCKWISE",
+	// 		  "anti-clockwise": "ANTICLOCKWISE",
+	// 		  wave: "WAVE"
+	// 		},
+	// 	      defaultCommandSet: "default",
+	// 	      commandSet: {
+	// 		  "default": {
+	// 		    "FORWARD": {
+	// 			notificationExec: {
+	// 			  notification: "SCENES_PAUSE",
+	// 			  payload:null,
+	// 			}
+	// 		      },
+	// 		      "RIGHT": {
+	// 				notificationExec: {
+	// 					notification: "SCENES_LINEAR_NEXT",
+	// 					payload: null
+	// 					}
+	// 				},
+	// 		      "LEFT": {
+	// 			notificationExec: {
+	// 			  notification: "SCENES_PREV",
+	// 			  payload: null
+	// 			}
+	// 		      },
+	// 		      "CLOCKWISE": {
+	// 			notificationExec: {
+	// 			  notification: "VOLUME_UP",
+	// 			  payload: null
+	// 			}
+	// 		      },
+	// 		      "ANTICLOCKWISE": {
+	// 			notificationExec: {
+	// 			  notification: "VOLUME_DOWN",
+	// 			}
+	// 		      },
+	// 		      "FORWARD-BACKWARD": {
+	// 			notificationExec: {
+	// 			  notification: "FORWARD_BACKWARD_GESTURE",
+	// 			  payload: null
+	// 			}
+	// 		      }
+
+	// 		    }
+	// 		  }
+	// 	      }
+		  
+	//   },
+
+
+	  //   {
+	// 	module: "MMM-GestureHandler",
+	// 	position: "top_right",
+	// 	classes: "homepage_page compliments_page football_page fantasy_page music_page_paused",
+	// 	config: {
+	// 	    waveTimeout: 20000, // 20 seconds
+	// 	    debug: true
+	// 	}
+	//   },
+
+
+	//   {
+	// 	module: "MMM-Volume",
+	// 	classes: "homepage_page compliments_page football_page music_page_paused",
+	// 	position: "top_center", 
+	// 	hidden: true,
+	// 	config: {
+	// 	    usePresetScript: "PULSE", 
+	// 	    volumeOnStart: 99,
+	// 	    upDownScale: 20,
+	// 	    hideDelay: 2000,
+	// 	    showOnStart: false,
+	// 	    showVolumeOnStart: false,
+	// 	    animationSpeed: 500,
+	// 	    fadeSpeed: 1000,
+	// 	  }
+	//   },
+	
+
+
+	  
+
+	  
+	  /****
+	  {
+	  
+	    module: "MMM-Universal-Pir",
+	    position: "top_center", // or leave this out if you don't want it to show
+	    config: {
+	      gpioCommand: "gpiomon -r -b gpiochip0 17",
+	      onCommand: "vcgencmd display_power 1",
+	      offCommand: "vcgencmd display_power 0",
+	      deactivateDelay: 120 * 1000,  // 2 minute delay before turning screen off
+	      showWelcomeMessage: true,
+	      verbose: true
+	    }
+	  },
+	  ****/
+
+
+	  ///////////////////////////////////////////////// HOMEPAGE
+	
+	  {
+		module: "WallberryTheme/WB-clock",
+		position: "top_left", 
+		classes: "homepage_page",
+		hiddenOnStart: true,
+		hidden: true,
+		config: {
+		    localCityName: "YOUR_CITY, STATE", // optional
+		    
+		  }
+	  },
+	  {
+		module: "MMM-CompactNews",
+		position: "top_right",
+		classes: "football_page", // or any page you want
+		config: {
+			feeds: [
+				{
+					title: "ESPN NFL News",
+					url: "http://www.espn.com/espn/rss/nfl/news"
+				},
+				{
+					title: "CBS Sports NFL",
+					url: "https://www.cbssports.com/rss/headlines/nfl/"
+				}
+			],
+			maxItems: 5,
+			updateInterval: 60 * 60 * 1000, // 1 hour
+			titleLength: 60,
+			showSource: true,
+			showTime: true,
+			maxWidth: 300,
+		}
+	},
+
+
+
+
+	  {
+		module: 'MMM-CalendarExt2',
+		classes: 'homepage_page calendar_class',
+		position: 'top_left',
+		config: {
+			updateInterval: 1000 * 60 * 5,
+			calendars : [
+			    {
+			      name: "personal",
+			      url:  "http://localhost:8080/modules/calendars/your_calendar.ics",
+			    },
+			    {
+			      name: "holiday",
+			      url: "https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics",
+			    },
+			],
+			views: [
+			  {
+				name: "upcoming",
+				mode: "upcoming",
+				position: "top_left",
+				maxItems: 5,
+				maxDays: 90,
+				locale: "en",
+				hideOverflow: true,
+				slotMaxHeight: "150px",
+				filterPassedEvent: true,
+				useEventTimeRelative: false,
+				calendars: [
+				  "personal", "holiday"
+				],
+				timeFormat: "h:mm A",
+				dateTimeFormat: {
+				  sameDay: "[Today] h:mm A",
+				  nextDay: "[Tomorrow] h:mm A",
+				  nextWeek: "dddd h:mm A",
+				  lastDay: "[Yesterday] h:mm A",
+				  lastWeek: "[Last] ddd h:mm A",
+				  sameElse: "M/D h:mm A"
+				},
+			
+			  },
+			],
+			scenes: [
+			  {
+			    name: "DEFAULT",
+			    views: ["upcoming"],
+			  },
+			],
+		      },										
+	    },
+
+	    {
+	      module:"MMM-CalendarExtMinimonth",
+	      position:"top_left",
+	      classes: 'homepage_page calendar_class',
+	      config: {
+		  calendars: ["personal", "holiday"],
+		  // ynamicEventColor: ["crimson", "#6c3baa"],
+		  source: "CALEXT2",
+	      },
+	      
+	    },
+
+	    
+    
+    
+
+    {
+		module: 'MMM-OpenWeatherMapForecast',
+		classes: 'homepage_page weather1_header',
+		position: 'top_right',
+		config: {
+			endpoint: "https://api.openweathermap.org/data/3.0/onecall",
+			apikey: "${OWM_API_KEY}",
+			latitude: "${YOUR_LATITUDE}",
+			longitude: "${YOUR_LONGITUDE}", 
+			iconset: "5m",
+			mainIconset: "3m",//"2c",
+			colored: true,
+			useAnimatedIcons: false,
+			showInlineIcons: false,
+			showForecastTableColumnHeaderIcons: false, 
+			showDailyForecast: false,
+			showHourlyForecast: false,
+			showPrecipitation: false,
+			requestDelay: 4000,
+			updateInterval: 300,
+			showWind: false,
+			concise: true,
+			forecastLayout: "table"
+		}
+	},
+	{
+		module: 'MMM-OpenWeatherMapForecast',
+		position: 'top_right',
+		classes: 'weather2_hourly homepage_page',
+		config: {
+			endpoint: "https://api.openweathermap.org/data/3.0/onecall",
+			apikey: "${OWM_API_KEY}",
+			latitude: "${YOUR_LATITUDE}",
+			longitude: "${YOUR_LONGITUDE}", 
+			iconset: "5m",
+			mainIconset: "3m",//"2c",
+			colored: true,
+			useAnimatedIcons: false,
+			showCurrentConditions: false,
+			showInlineIcons: false,
+			showForecastTableColumnHeaderIcons: false, 
+			showExtraCurrentConditions: false,
+			showSummary: false,
+			updateInterval: 300,
+			requestDelay: 6000,
+			showDailyForecast: false,
+			showPrecipitation: false,
+			hourlyForecastInterval: 2,
+			maxHourliesToShow: 4,
+			showWind: false,
+			concise: true,
+			forecastLayout: "tiled"
+		}
+	},
+	{
+		module: 'MMM-OpenWeatherMapForecast',
+		position: 'top_right',
+		classes: 'homepage_page weather3_daily',
+		config: {
+			endpoint: "https://api.openweathermap.org/data/3.0/onecall",
+			apikey: "${OWM_API_KEY}",
+			latitude: "${YOUR_LATITUDE}",
+			longitude: "${YOUR_LONGITUDE}", 
+			iconset: "2m",
+			colored: true,
+			maxDailiesToShow: 5,
+			showExtraCurrentConditions: false,
+			showSummary: false,
+			showCurrentConditions: false,
+			useAnimatedIcons: false,
+			showDailyForecast: true,
+			showHourlyForecast: false,
+			updateInterval: 300,
+			requestDelay: 9000,
+			updateFadeSpeed: 0,
+			forecastLayout: "table",
+			showWind: false,
+			concise: true,
+			showPrecipitation: false,
+			
+		}
+	},
+	
+	/*
+	{
+	 module: "MMM-DynamicWeather",
+	 classes: 'homepage_page',
+	 position: "fullscreen_above",
+	 config: { 
+	  api_key: "${OWM_API_KEY}",
+	  lat: "${YOUR_LATITUDE}",
+	  lon: "${YOUR_LONGITUDE}",
+	  effectDuration: 8000, 
+	  effectDelay: 600000, 
+	  particleCount: 15,
+	  opacity: 0.6,
+	  
+	 }
+	},
+	*/
+	    {
+			module: "MMM-MyStandings",
+			position: "bottom_left",
+			classes: 'homepage_page standings_class',
+			config: {
+				updateInterval: 60 * 60 * 1000, // every 60 minutes
+				rotateInterval: 1 * 60 * 1000, // every 1 minute
+				sports: [
+					{ league: "MLB", groups: ["American League East"]},
+				],
+				nameStyle: "short",
+				showLogos: true,
+				useLocalLogos: true,
+				showByDivision: true,
+				fadeSpeed: 2000,
+			}
+	  },
+	    
+	        {
+		  module: 'MMM-MyScoreboard',
+		  position: 'bottom_left',
+		  classes: 'homepage_page',
+		  config: {
+		    viewStyle: 'mediumLogos',
+		    showLeagueSeparators: false,
+		    colored: true,
+		    showLocalBroadcasts: true,
+		    localMarkets: [
+		      'BOS'
+		    ],
+		    showPlayoffStatus: true,
+		    sports: [
+		      {
+			league: 'NBA',
+			teams: [
+			  'BOS'
+			]
+		      },
+		      {
+			league: 'MLB',
+			teams: [
+			  'BOS'
+			]
+		      },
+			  {
+				league: 'NFL',
+				teams: [
+				  'PHI'
+				]
+				},
+			  
+		    ]
+		  }
+		},
+
+		
+		
+	  
+	
+	      //////////////////////////////////////// JOKES AND FACTS PAGE
+
+
+		{
+			module: "MMM-JokesAndFacts",
+			position: "middle_center",
+			classes: "jokes_and_facts_page", 
+			config: {
+				rotationInterval: 15 * 1000, // 15 seconds between joke/fact rotation
+				updateInterval: 30 * 60 * 1000, // 30 minutes for fresh content
+				fadeSpeed: 4 * 1000, // 4 seconds fade transition
+				filters: [], // Add any words you want to filter out
+				fontSize: '1.5rem',
+				textAlign: 'center',
+				language: "en", // Language for useless facts
+				showType: true, // Show "Dad Joke" or "Useless Fact" label
+				typePosition: "top" // "top", "bottom", or "none"
+			}
+		},
+
+		
+
+
+
+
+
+
+	      
+		///////////////////////////////////////////////////  FOOTBALL PAGE
+
+		// {
+		// 	module: "MMM-Reddit",
+		// 	position: "bottom_bar",
+		// 	classes: "fantasy_page",
+		// 	config: {
+		// 		displayType: 'headlines',
+		// 		count: 8,
+		// 		show: 4,  // Show more posts with cleaner layout
+		// 		width: 1200, // Wide enough for 4 images across screen
+		// 		characterLimit: 80,  // Limit headlines to 80 characters
+		// 		updateInterval: 5,  // Update posts every 5 minutes (was 15)
+		// 		rotateInterval: 20,  // Rotate between posts every 20 seconds (was 30)
+		// 		showScore: false,  // Remove scores
+		// 		showSubreddit: true,  // Keep subreddit
+		// 		colorText: true,
+		// 		showThumbnail: true,  // Show thumbnails in headlines mode
+		// 		showHeader: false,
+		// 		showNumComments: false,  // Remove comment counts
+		// 		showRank: false,  // Clean image layout
+		// 		showGilded: false,  // Remove gilded icons
+		// 		showAuthor: false,  // Remove author names
+		// 		maxImageHeight: 700,
+		// 		debug: true,
+		// 	}
+		// },
+
+		
+		// Football News Feed
+		// {
+		// 	module: "newsfeed",
+		// 	position: "middle_center",
+		// 	classes: "football_page",
+		// 	config: {
+		// 		feeds: [
+		// 			{
+		// 				title: "ESPN NFL News",
+		// 				url: "http://www.espn.com/espn/rss/nfl/news"
+		// 			},
+					
+		// 			{
+		// 				title: "CBS Sports NFL",
+		// 				url: "https://www.cbssports.com/rss/headlines/nfl/"
+		// 			}
+		// 		],
+		// 		showSourceTitle: true,
+		// 		showPublishDate: true,
+		// 		showDescription: false,
+		// 		wrapTitle: true,
+		// 		truncDescription: true,
+		// 		lengthDescription: 100,
+		// 		updateInterval: 15 * 1000, // 15 seconds between articles
+		// 		reloadInterval: 5 * 60 * 1000, // 5 minutes to fetch new articles
+		// 		maxNewsItems: 10,
+		// 		animationSpeed: 2000,
+		// 		scrollLength: 300
+		// 	}
+		// },
+		
+	    
+
+
+
+		// Football Scoreboard - Top of football page
+		// {
+		// 	module: 'MMM-ScoreboardNew',
+			// position: 'top_right',
+			// classes: 'football_page',
+		// 	config: {
+		// 		updateInterval: 10 * 60 * 1000, // 10 minutes
+		// 		initialLoadDelay: 10 * 1000, // 10 second initial load delay
+		// 		viewStyle: 'largeLogos',
+		// 		showLeagueSeparators: false,
+		// 		colored: true,
+		// 		shadeRows: true,
+		// 		showLocalBroadcasts: true,
+		// 		useLocalLogos: true,
+		// 		localMarkets: ['PHI'],
+		// 		showPlayoffStatus: true,
+		// 		rolloverHours: 72, // keep showing last game for 3 days
+		// 		alwaysShowToday: true, // show upcoming game even during rollover
+		// 		sports: [
+		// 			{ league: "NFL", teams: ["PHI"] }
+		// 		]
+		// 	}
+		// },
+		{
+			module: 'MMM-ScoreboardNew',
+			position: 'top_left',
+			classes: 'football_page',
+			config: {
+				wallberryStyle: true,
+				showDay: true,
+				showWeekLabel: true, // Shows "WEEK 3" header
+				showLeagueSeparators: false,
+				rolloverDays: 3, // Show previous week for 3 days after week ends
+				ListPrimetime: true, // Show upcoming primetime games
+				sports: [
+					{ league: "NFL", teams: ["PHI"] }
+				]
+			}
+		},
+
+		{
+			module: "MMM-NFLDivisionsGrid",
+			position: "bottom_right", 
+			classes: "football_page",
+			config: {
+				updateInterval: 60 * 60 * 1000, // 60 minutes
+				showLogos: true,
+				useLocalLogos: true,
+				nameStyle: "short",
+				showRecords: true,
+				showConferenceLabels: true,
+				animationSpeed: 2000
+			}
+		},
+
+		// JUST NFC EAST STANDINGS
+		// {
+		// 	module: 'MMM-StandingsNew',
+		// 	position: 'top_right',
+		// 	classes: 'football_page',
+		// 	config: {
+		// 		updateInterval: 60 * 60 * 1000, // every 60 minutes
+		// 		// rotateInterval: 8 * 1000, // every 8 seconds (rotate through 4 AFC divisions)
+		// 		initialLoadDelay: 15 * 1000, // 15 second initial load delay
+		// 		nameStyle: "short", // "abbreviation", "full", or "short"
+		// 		showLogos: true,
+		// 		useLocalLogos: true,
+		// 		showByDivision: true, // Rotate through divisions
+		// 		addLeagueToTitle: true,
+		// 		fadeSpeed: 2000,
+		// 		sports: [
+		// 			{ league: "NFL", groups: ["NFC East"] }
+		// 		]
+		// 	}
+		// },
+
+		// ALL OTHER STANDINGS ROTATING
+		// {
+		// 	module: 'MMM-StandingsNew',
+		// 	position: 'bottom_right',
+		// 	classes: 'football_page',
+		// 	config: {
+		// 		updateInterval: 60 * 60 * 1000, // every 60 minutes
+		// 		rotateInterval: 8 * 1000, // every 8 seconds (rotate through 4 NFC divisions)
+		// 		initialLoadDelay: 20 * 1000, // 20 second initial load delay (offset from AFC)
+		// 		nameStyle: "short", // "abbreviation", "full", or "short"
+		// 		showLogos: true,
+		// 		useLocalLogos: true,
+		// 		showByDivision: true, // Rotate through divisions
+		// 		addLeagueToTitle: true,
+		// 		fadeSpeed: 2000,
+		// 		sports: [
+		// 			{ league: "NFL", groups: ["AFC East", "AFC North", "AFC South", "AFC West", "NFC North", "NFC South", "NFC West"] }
+		// 		]
+		// 	}
+		// },
+
+		///////////////////////////////////////////// FANTASY PAGE
+		// Fantasy Football News Feed
+		// {
+		// 	module: "newsfeed",
+		// 	position: "bottom_center",
+		// 	classes: "fantasy_page",
+		// 	config: {
+		// 		feeds: [
+		// 			{
+		// 				title: "Fantasy Football Today",
+		// 				url: "https://www.fftoday.com/rss/news.xml"
+		// 			}
+		// 		],
+		// 		showSourceTitle: true,
+		// 		showPublishDate: true,
+		// 		showDescription: false,
+		// 		wrapTitle: true,
+		// 		truncDescription: true,
+		// 		lengthDescription: 100,
+		// 		updateInterval: 15 * 1000, // 15 seconds between articles
+		// 		reloadInterval: 10 * 60 * 1000, // 10 minutes to fetch new articles
+		// 		maxNewsItems: 8,
+		// 		animationSpeed: 2000,
+		// 		scrollLength: 300
+		// 	}
+		// },
+
+		{
+			module: "MMM-FantasyTracker",
+			position: "top_center",
+			classes: 'fantasy_page',
+			config: {
+				leagueId: "${ESPN_LEAGUE_ID}",
+				year: 2025,
+				username: "${ESPN_USERNAME}",
+				updateInterval: NORMAL_FANTASY_UPDATE_INTERVAL + API_STAGGER_FANTASY, // Staggered API requests
+				transparentBackground: true,
+				clownMode: false, // Add clown wigs to opponent players
+				animationSpeed: NORMAL_ENABLE_ANIMATIONS ? 2000 : 0 // Enable animations in normal mode
+			}
+		},
+
+
+
+		
+		// {
+		// 	module: 'MMM-NFL',
+		// 	colored: false,
+		// 	position: 'bottom_bar',
+		// 	classes: 'fantasy_page',
+		// 	config: {
+		// 		tableSize: 'small',
+		// 		// all your config options, which are different than their default values
+		// 	}
+		// },
+		{
+			module: "MMM-AllGamesLive",
+			position: "middle_center",
+			classes: "live_scores_page",
+			config: {
+				showPossession: true,
+				showRedZone: true,
+				showDownDistance: true,
+				devPreview: true, // Enable fake data for testing
+				reloadInterval: NORMAL_NFL_UPDATE_INTERVAL + API_STAGGER_NFL, // Staggered API requests
+				animationSpeed: NORMAL_ENABLE_ANIMATIONS ? 2000 : 0 // Enable animations in normal mode
+			}
+		},
+		// {
+		// 	module: "MMM-CompactNews",
+		// 	position: "bottom_right",
+		// 	classes: "fantasy_page", // or any page you want
+		// 	config: {
+		// 		feeds: [
+		// 			{
+		// 				title: "",
+		// 				url: "https://www.draftsharks.com/rss/latest-news"
+		// 			},
+
+		// 		],
+		// 		maxItems: 7,
+		// 		updateInterval: 120 * 60 * 1000, // 1 hour
+		// 		titleLength: 60,
+		// 		showSource: true,
+		// 		showTime: true
+		// 	}
+		// },
+		{
+			module: "MMM-FantasyStandings",
+			position: "bottom_left", // Or wherever you want it
+			classes: "fantasy_page",
+			config: {
+				leagueId: "${ESPN_LEAGUE_ID}",
+				year: 2025,
+				username: "${ESPN_USERNAME}"
+			}
+		},
+		{
+			module: "MMM-NFLMinimal",
+			position: "bottom_right",
+			classes: "fantasy_page",
+			config: {
+				showPossession: true,
+				showRedZone: true,
+				showDownDistance: true,
+				reloadInterval: NORMAL_NFL_UPDATE_INTERVAL + API_STAGGER_NFL, // Staggered API requests
+				animationSpeed: NORMAL_ENABLE_ANIMATIONS ? 2000 : 0 // Enable animations in normal mode
+			}
+		},
+
+
+
+		///////////////////////////////////////////////////  MUSIC PAGE
+	      
+
+	      
+		  
+		 // NEW: UxPlay-based music system (better than LastFm!)
+	  {
+		module: "MMM-UxPlayNowPlaying",
+		position: "middle_center",
+		classes: "music_page_paused",
+		config: {
+			metadataFile: "/home/pi/metadata.txt",
+			coverartFile: "/home/pi/coverart.jpg",
+			checkInterval: 2000, // 2 seconds - Pi-friendly for display updates
+			animationSpeed: 300,
+			// Transition Configuration
+			enableTransitions: true,
+			trackChangeTransition: "fadeSlide", // "fade", "slide", "fadeSlide", "scale", "none"
+			trackChangeSpeed: 2000, // milliseconds
+			albumArtTransition: "fadeScale", // "fade", "scale", "fadeScale", "none"  
+			albumArtSpeed: 1000, // milliseconds
+			moduleEnterTransition: "none", // "fade", "slideUp", "slideDown", "scale", "none"
+			textAnimations: true, // Enable subtle text animations
+		}
+	  },
+	  {
+		module: "MMM-UxPlayScenes", 
+		position: "top_center",
+		hidden: true,
+		config: {
+			musicSceneName: "music_page_paused",
+			returnSceneName: "homepage_page",
+			stopDelay: 45000, // 45 seconds - forgiving for WiFi/buffering gaps
+			metadataFile: "/home/pi/metadata.txt",
+			checkInterval: 8000, // 8 seconds - Pi-friendly (default 2s)
+		}
+	  },
+
+
+		{
+			module: "MMM-BackgroundSlideshow",
+			classes: 'music_page_paused',
+			position: "fullscreen_below",
+			config: {
+				imagePaths: ["modules/MMM-BackgroundSlideshow/tv_backgrounds"],
+				slideshowSpeed: 30 * 1000, // 30 seconds per image
+				randomizeImageOrder: true,
+				showAllImagesBeforeRestart: true,
+				transitionImages: true,
+				transitions: ["opacity"],
+				transitionSpeed: "3s",
+				backgroundSize: "cover", // Perfect for TV display
+				backgroundPosition: "center",
+				backgroundAnimationEnabled: false, // Save Pi resources
+			}
+		},
+	  
+	      
+	      
+	      ///////////////////////////////////////////// SCENE MANAGER
+	  
+	  
+	  
+	 
+	  
+	  
+	  {
+				module: "MMM-Scenes2",
+				position: "bottom_bar",
+				config: {
+					life: NORMAL_SCENE_DURATION, // Use the normal variable for regular operation
+					defaultEnter: {
+					animation: "fadeInRight",
+					duration: 500
+					},
+					defaultExit: {
+					animation: "fadeOut",
+					duration: 500
+					},
+					scenario: [
+					{
+						name: "loading_screen",
+						enter: [],
+						exit: [],
+						life: LOADING_DURATION, // Use the variable defined above
+						next: "homepage_page",
+						activeIndicator: ' ',
+						inactiveIndicator: ' ',
+					},
+					{
+						name: "homepage_page",
+						enter: ["homepage_page"],
+						exit: ["live_scores_page", "dad-jokes-scene", "jokes_and_facts_page", "fantasy_page", "music_page_paused"],
+						activeIndicator: '<i class="fas fa-home"></i>',
+						inactiveIndicator: '□',
+						next: "jokes_and_facts_page"
+					},
+					{
+						name: "jokes_and_facts_page",
+						enter: ["jokes_and_facts_page"],
+						exit: ["live_scores_page","homepage_page", "football_page", "music_page_paused", "fantasy_page"],
+						activeIndicator: '<i class="fas fa-lightbulb"></i>',
+						inactiveIndicator: '□',
+						next: "football_page" 
+					},
+					{
+						name: "football_page",
+						enter: ["football_page"],
+						exit: ["live_scores_page","homepage_page", "jokes_and_facts_page", "music_page_paused", "fantasy_page"],
+						activeIndicator: '<i class="fas fa-football-ball"></i>',
+						inactiveIndicator: '□',
+						next: "fantasy_page"
+					},
+					{
+						name: "fantasy_page",
+						enter: ["fantasy_page"],
+						exit: ["live_scores_page", "homepage_page", "jokes_and_facts_page", "music_page_paused", "football_page"],
+						activeIndicator: '<i class="fas fa-trophy"></i>',
+						inactiveIndicator: '□',
+						next: "live_scores_page"
+					},
+					{
+						name: "live_scores_page",
+						enter: ["live_scores_page"],
+						exit: ["fantasy_page", "homepage_page", "jokes_and_facts_page", "music_page_paused", "football_page"],
+						activeIndicator: '<i class="fas fa-broadcast-tower"></i>',
+						inactiveIndicator: '□',
+						next: "homepage_page"
+					},
+					{
+						name: "music_page_paused",
+						enter: ["music_page_paused"],
+						exit: ["live_scores_page","homepage_page", "jokes_and_facts_page", "football_page", "fantasy_page"],
+						life: 0, // Paused indefinitely
+						next: false,
+						activeIndicator: '<i class="fas fa-music"></i>',
+						inactiveIndicator: ' ',
+					}
+					]
+				}
+			}
+
+
+	  
+  ],
+  useHttps: false,
+  httpsPrivateKey: '',
+  httpsCertificate: '',
+  locale: 'en-US',
+  
+  // Custom scripts
+  customCss: 'css/custom.css'
+}
+
+/*************** DO NOT EDIT THE LINE BELOW ***************/
+if (typeof module !== 'undefined') {module.exports = config;}

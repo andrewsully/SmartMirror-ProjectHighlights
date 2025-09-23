@@ -1,0 +1,25 @@
+{
+    "name": "mmm-openweathermapforecast",
+    "version": "1.1.0",
+    "description": "MagicMirror² module that gets weather forecast data from OpenWeatherMap.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MarcLandis/MMM-OpenWeatherMapForecast"
+    },
+    "keywords": [
+        "MagicMirror",
+        "MagicMirror²",
+        "Weather",
+        "OpenWeatherMap",
+        "Forecast"
+    ],
+    "main": "MMM-OpenWeatherMapForecast.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Jeff Clarke",
+    "license": "MIT",
+    "dependencies": {
+        "moment": "^2.30.1"
+    }
+}

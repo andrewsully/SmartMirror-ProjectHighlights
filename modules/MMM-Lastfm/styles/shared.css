@@ -1,0 +1,54 @@
+.MMM-Lastfm .grayscale {
+    -webkit-filter: grayscale(100%);
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%); 
+}
+
+.MMM-Lastfm .rounded {
+  border-radius: 10px;
+}
+
+.MMM-Lastfm .round {
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.MMM-Lastfm .rotate {
+  animation: spin 7s infinite linear;
+}
+
+.MMM-Lastfm .rotate-slow {
+  animation-duration: 15s;
+}
+
+.MMM-Lastfm .rotate-fast {
+  animation-duration: 1s;
+}
+
+.MMM-Lastfm .rotate-reverse {
+  animation-direction: reverse;
+}
+
+.MMM-Lastfm .cd {
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.MMM-Lastfm .cd-hole {
+  display: none;
+  opacity: 0.85;
+  background-color: black;
+  border-color: white;
+  border-style: solid;
+  border-radius: 50%;
+}

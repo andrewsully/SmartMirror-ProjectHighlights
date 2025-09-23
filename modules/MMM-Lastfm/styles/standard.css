@@ -1,0 +1,45 @@
+.MMM-Lastfm .standard .title {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.MMM-Lastfm .standard table {
+    width: inherit;
+    max-width: inherit;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.MMM-Lastfm .standard .symbol {
+    width: 25px;
+    display: flex;
+    flex-direction: row;
+    font-size: var(--font-size-small);
+}
+
+/* Album art effects */
+.MMM-Lastfm .standard .cd ~ .cd-hole {
+    position: absolute;
+    display: block;
+    width: 10%;
+    aspect-ratio: 1/1;
+    left: 39%;
+    top: 30%;
+    border-width: 1em;
+}
+
+/* Left */
+.MMM-Lastfm .standard.left .symbol span {
+    padding-top: 4px;
+    padding-right: 4px;
+}
+
+/* Right */
+.MMM-Lastfm .standard.right .symbol span {
+    padding-top: 4px;
+    padding-left: 4px;
+}
+
+.MMM-Lastfm .standard.right table {
+    float: right;
+}

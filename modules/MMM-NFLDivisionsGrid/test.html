@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMM-NFLDivisionsGrid Test Environment</title>
+    <style>
+        /* Copy MagicMirror base styles */
+        body {
+            margin: 60px;
+            color: #ffffff;
+            font-family: "Roboto", sans-serif;
+            font-size: 27px;
+            background-color: #000000;
+            line-height: 1.5em;
+        }
+        
+        /* Include the module's CSS */
+    </style>
+    <link rel="stylesheet" href="MMM-NFLDivisionsGrid.css">
+</head>
+<body>
+    <h1 style="text-align: center; color: #ffffff; margin-bottom: 30px;">MMM-NFLDivisionsGrid Test</h1>
+    
+    <div id="module-container">
+        <!-- Module content will be inserted here -->
+    </div>
+
+    <script>
+        // Mock NFL standings data for testing
+        const mockStandingsData = {
+            "AFC East": [
+                { displayName: "Buffalo Bills", shortDisplayName: "Bills", abbreviation: "BUF", stats: { wins: 11, losses: 5 } },
+                { displayName: "Miami Dolphins", shortDisplayName: "Dolphins", abbreviation: "MIA", stats: { wins: 9, losses: 7 } },
+                { displayName: "New York Jets", shortDisplayName: "Jets", abbreviation: "NYJ", stats: { wins: 7, losses: 9 } },
+                { displayName: "New England Patriots", shortDisplayName: "Patriots", abbreviation: "NE", stats: { wins: 4, losses: 12 } }
+            ],
+            "AFC North": [
+                { displayName: "Baltimore Ravens", shortDisplayName: "Ravens", abbreviation: "BAL", stats: { wins: 13, losses: 3 } },
+                { displayName: "Cincinnati Bengals", shortDisplayName: "Bengals", abbreviation: "CIN", stats: { wins: 9, losses: 7 } },
+                { displayName: "Pittsburgh Steelers", shortDisplayName: "Steelers", abbreviation: "PIT", stats: { wins: 9, losses: 7 } },
+                { displayName: "Cleveland Browns", shortDisplayName: "Browns", abbreviation: "CLE", stats: { wins: 6, losses: 10 } }
+            ],
+            "AFC South": [
+                { displayName: "Houston Texans", shortDisplayName: "Texans", abbreviation: "HOU", stats: { wins: 10, losses: 6 } },
+                { displayName: "Indianapolis Colts", shortDisplayName: "Colts", abbreviation: "IND", stats: { wins: 9, losses: 7 } },
+                { displayName: "Jacksonville Jaguars", shortDisplayName: "Jaguars", abbreviation: "JAX", stats: { wins: 3, losses: 13 } },
+                { displayName: "Tennessee Titans", shortDisplayName: "Titans", abbreviation: "TEN", stats: { wins: 3, losses: 13 } }
+            ],
+            "AFC West": [
+                { displayName: "Kansas City Chiefs", shortDisplayName: "Chiefs", abbreviation: "KC", stats: { wins: 14, losses: 2 } },
+                { displayName: "Los Angeles Chargers", shortDisplayName: "Chargers", abbreviation: "LAC", stats: { wins: 10, losses: 6 } },
+                { displayName: "Las Vegas Raiders", shortDisplayName: "Raiders", abbreviation: "LV", stats: { wins: 8, losses: 8 } },
+                { displayName: "Denver Broncos", shortDisplayName: "Broncos", abbreviation: "DEN", stats: { wins: 8, losses: 8 } }
+            ],
+            "NFC East": [
+                { displayName: "Philadelphia Eagles", shortDisplayName: "Eagles", abbreviation: "PHI", stats: { wins: 11, losses: 5 } },
+                { displayName: "Dallas Cowboys", shortDisplayName: "Cowboys", abbreviation: "DAL", stats: { wins: 10, losses: 6 } },
+                { displayName: "New York Giants", shortDisplayName: "Giants", abbreviation: "NYG", stats: { wins: 6, losses: 10 } },
+                { displayName: "Washington Commanders", shortDisplayName: "Commanders", abbreviation: "WSH", stats: { wins: 4, losses: 12 } }
+            ],
+            "NFC North": [
+                { displayName: "Detroit Lions", shortDisplayName: "Lions", abbreviation: "DET", stats: { wins: 12, losses: 4 } },
+                { displayName: "Green Bay Packers", shortDisplayName: "Packers", abbreviation: "GB", stats: { wins: 9, losses: 7 } },
+                { displayName: "Minnesota Vikings", shortDisplayName: "Vikings", abbreviation: "MIN", stats: { wins: 7, losses: 9 } },
+                { displayName: "Chicago Bears", shortDisplayName: "Bears", abbreviation: "CHI", stats: { wins: 5, losses: 11 } }
+            ],
+            "NFC South": [
+                { displayName: "Atlanta Falcons", shortDisplayName: "Falcons", abbreviation: "ATL", stats: { wins: 8, losses: 8 } },
+                { displayName: "Tampa Bay Buccaneers", shortDisplayName: "Buccaneers", abbreviation: "TB", stats: { wins: 8, losses: 8 } },
+                { displayName: "New Orleans Saints", shortDisplayName: "Saints", abbreviation: "NO", stats: { wins: 7, losses: 9 } },
+                { displayName: "Carolina Panthers", shortDisplayName: "Panthers", abbreviation: "CAR", stats: { wins: 2, losses: 14 } }
+            ],
+            "NFC West": [
+                { displayName: "Seattle Seahawks", shortDisplayName: "Seahawks", abbreviation: "SEA", stats: { wins: 11, losses: 5 } },
+                { displayName: "Los Angeles Rams", shortDisplayName: "Rams", abbreviation: "LAR", stats: { wins: 9, losses: 7 } },
+                { displayName: "San Francisco 49ers", shortDisplayName: "49ers", abbreviation: "SF", stats: { wins: 6, losses: 10 } },
+                { displayName: "Arizona Cardinals", shortDisplayName: "Cardinals", abbreviation: "ARI", stats: { wins: 4, losses: 12 } }
+            ]
+        };
+
+        // Mock config
+        const mockConfig = {
+            showLogos: true,
+            useLocalLogos: true,
+            nameStyle: "abbreviation", // Change this to test different name styles
+            showRecords: true,
+            showConferenceLabels: true,
+            divisions: {
+                afc: [
+                    { name: "AFC East" },
+                    { name: "AFC North" },
+                    { name: "AFC South" },
+                    { name: "AFC West" }
+                ],
+                nfc: [
+                    { name: "NFC East" },
+                    { name: "NFC North" },
+                    { name: "NFC South" },
+                    { name: "NFC West" }
+                ]
+            }
+        };
+
+        // Mock module functions
+        function getTeamName(team) {
+            switch (mockConfig.nameStyle) {
+                case "abbreviation":
+                    return team.abbreviation;
+                case "full":
+                    return team.displayName;
+                case "short":
+                default:
+                    return team.shortDisplayName;
+            }
+        }
+
+        function getTeamLogoUrl(team) {
+            if (mockConfig.useLocalLogos) {
+                return `../MMM-MyStandings/logos/NFL/${team.abbreviation}.svg`;
+            } else {
+                return `https://a.espncdn.com/i/teamlogos/nfl/500/${team.abbreviation}.png`;
+            }
+        }
+
+        function createDivisionTable(division, standings) {
+            const container = document.createElement("div");
+            container.className = "division-container";
+
+            const table = document.createElement("table");
+            table.className = "standings";
+
+            // Division header row
+            const headerRow = document.createElement("tr");
+            headerRow.className = "league-separator";
+            
+            const headerCell = document.createElement("td");
+            headerCell.colSpan = 4;
+            const headerSpan = document.createElement("span");
+            headerSpan.textContent = division.name.replace("AFC ", "").replace("NFC ", "");
+            headerCell.appendChild(headerSpan);
+            headerRow.appendChild(headerCell);
+            table.appendChild(headerRow);
+
+            // Column headers
+            const colHeaderRow = document.createElement("tr");
+            if (mockConfig.showLogos) {
+                const logoHeader = document.createElement("td");
+                colHeaderRow.appendChild(logoHeader);
+            }
+            const teamHeader = document.createElement("td");
+            colHeaderRow.appendChild(teamHeader);
+            
+            const wHeader = document.createElement("td");
+            wHeader.textContent = "W";
+            colHeaderRow.appendChild(wHeader);
+            
+            const lHeader = document.createElement("td");
+            lHeader.textContent = "L";
+            colHeaderRow.appendChild(lHeader);
+            
+            table.appendChild(colHeaderRow);
+
+            // Team rows
+            if (standings && standings.length > 0) {
+                standings.forEach((team, index) => {
+                    const teamRow = document.createElement("tr");
+
+                    // Logo
+                    if (mockConfig.showLogos) {
+                        const logoCell = document.createElement("td");
+                        logoCell.className = "logo";
+                        const logo = document.createElement("img");
+                        logo.className = "logo";
+                        logo.src = getTeamLogoUrl(team);
+                        logo.alt = team.displayName;
+                        logoCell.appendChild(logo);
+                        teamRow.appendChild(logoCell);
+                    }
+
+                    // Team name
+                    const nameCell = document.createElement("td");
+                    nameCell.textContent = getTeamName(team);
+                    teamRow.appendChild(nameCell);
+
+                    // Wins
+                    const winsCell = document.createElement("td");
+                    winsCell.textContent = team.stats.wins;
+                    teamRow.appendChild(winsCell);
+
+                    // Losses
+                    const lossesCell = document.createElement("td");
+                    lossesCell.textContent = team.stats.losses;
+                    teamRow.appendChild(lossesCell);
+
+                    table.appendChild(teamRow);
+                });
+            }
+
+            container.appendChild(table);
+            return container;
+        }
+
+        // Render the module
+        function renderModule() {
+            const container = document.getElementById("module-container");
+            const wrapper = document.createElement("div");
+            wrapper.className = "MMM-NFLDivisionsGrid";
+
+            // AFC Conference Section
+            const afcSection = document.createElement("div");
+            afcSection.className = "conference-section";
+            
+            if (mockConfig.showConferenceLabels) {
+                const afcLabel = document.createElement("div");
+                afcLabel.className = "conference-label";
+                afcLabel.textContent = "AFC";
+                afcSection.appendChild(afcLabel);
+            }
+
+            const afcRow = document.createElement("div");
+            afcRow.className = "divisions-row";
+            
+            mockConfig.divisions.afc.forEach(division => {
+                const divisionTable = createDivisionTable(division, mockStandingsData[division.name]);
+                afcRow.appendChild(divisionTable);
+            });
+            afcSection.appendChild(afcRow);
+            wrapper.appendChild(afcSection);
+
+            // NFC Conference Section
+            const nfcSection = document.createElement("div");
+            nfcSection.className = "conference-section";
+            
+            if (mockConfig.showConferenceLabels) {
+                const nfcLabel = document.createElement("div");
+                nfcLabel.className = "conference-label";
+                nfcLabel.textContent = "NFC";
+                nfcSection.appendChild(nfcLabel);
+            }
+
+            const nfcRow = document.createElement("div");
+            nfcRow.className = "divisions-row";
+            
+            mockConfig.divisions.nfc.forEach(division => {
+                const divisionTable = createDivisionTable(division, mockStandingsData[division.name]);
+                nfcRow.appendChild(divisionTable);
+            });
+            nfcSection.appendChild(nfcRow);
+            wrapper.appendChild(nfcSection);
+
+            // Clear and add new content
+            container.innerHTML = '';
+            container.appendChild(wrapper);
+        }
+
+        // Initial render
+        window.onload = function() {
+            renderModule();
+        };
+
+        // Add controls for testing different configurations
+        function updateConfig(property, value) {
+            mockConfig[property] = value;
+            renderModule();
+        }
+    </script>
+
+    <div style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 8px;">
+        <h3 style="color: white; margin: 0 0 10px 0; font-size: 14px;">Test Controls</h3>
+        <label style="color: white; font-size: 12px;">
+            Name Style: 
+            <select onchange="updateConfig('nameStyle', this.value)" style="margin-left: 5px;">
+                <option value="abbreviation" selected>Abbreviation</option>
+                <option value="short">Short</option>
+                <option value="full">Full</option>
+            </select>
+        </label><br><br>
+        <label style="color: white; font-size: 12px;">
+            <input type="checkbox" checked onchange="updateConfig('showLogos', this.checked)"> Show Logos
+        </label><br>
+        <label style="color: white; font-size: 12px;">
+            <input type="checkbox" checked onchange="updateConfig('showConferenceLabels', this.checked)"> Show Conference Labels
+        </label><br>
+        <button onclick="renderModule()" style="margin-top: 10px; padding: 5px 10px;">Refresh</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+#CXMM {
+  --base-size: 10px; /* You can adjust this value to fit your size */
+}
+
+#CXMM div {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  line-height:100%;
+}
+
+#CXMM .cell {
+  width:calc(var(--base-size) *  3);
+  height:calc(var(--base-size) * 3);
+  display:inline-block;
+  font-size:var(--base-size);
+  font-weight:normal;
+  border-radius:50%;
+  line-height:calc(var(--base-size) * 3 - 3px); /* This value might be needed to change when you change --base-size */
+  text-align: center;
+  margin:calc(var(--base-size) / 4);
+  color:#999;
+}
+
+#CXMM .cell.thismonth {
+  color:#FFF;
+  background-color:#222;
+}
+
+#CXMM .cell.today {
+  background-color: White;
+  color: Black !important;
+  font-weight:bold;
+}
+
+#CXMM .cell.event_exist {
+  border-width: 2px;
+}
+
+#CXMM .cell.weekday_title {
+  color:#FFF;
+  background-color:#333;
+}
+
+#CXMM .cell.weekdays_6 { /* Saturday */
+  color: #FFF;
+}
+
+#CXMM .cell.weekdays_7 { /* Sunday */
+  color: #FFF;
+}
+
+#CXMM .cell.past {
+  background-color: black !important;
+  color: #555 !important;  /* optional: still visible if needed */
+}
+
+#CXMM .cell.past.event_exist {
+  border: none !important;
+}
+
+#CXMM .header,
+#CXMM .cell.weekday_title {
+  display: none !important;
+}

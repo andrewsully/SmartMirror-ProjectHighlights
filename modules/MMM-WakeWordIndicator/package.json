@@ -1,0 +1,22 @@
+{
+  "name": "MMM-WakeWordIndicator",
+  "version": "1.0.0",
+  "description": "A MagicMirror module that shows visual indicators for wake word detection and voice command processing",
+  "main": "MMM-WakeWordIndicator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "MagicMirror",
+    "module",
+    "wake-word",
+    "voice",
+    "rhasspy",
+    "mqtt"
+  ],
+  "author": "Andrew",
+  "license": "MIT",
+  "dependencies": {
+    "mqtt": "^4.3.7"
+  }
+}

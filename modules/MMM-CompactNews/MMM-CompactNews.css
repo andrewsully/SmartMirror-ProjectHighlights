@@ -1,0 +1,103 @@
+/*
+ * MMM-CompactNews
+ * Compact news display for top_right corner
+ */
+
+.MMM-CompactNews {
+    width: 100%;
+    max-width: 400px; /* Compact width for top_right */
+    min-width: 200px; /* Ensure minimum width */
+    text-align: right; /* Right-align all content */
+    word-wrap: normal; /* Prevent weird wrapping */
+    white-space: normal; /* Allow normal text flow */
+}
+
+.MMM-CompactNews .loading {
+    font-size: 12px;
+    opacity: 0.6;
+    text-align: right;
+    color: #ffffff;
+}
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Space between news items */
+    align-items: flex-end; /* Right-align items */
+}
+
+.news-item {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 3px 4px;
+    width: 100%;
+    text-align: right;
+    border-right: 4px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    min-height: auto; /* Allow natural height expansion */
+}
+
+.news-item.even {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.news-item.odd {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.news-meta {
+    font-size: 10px;
+    color: var(--grey-text-color, #bbbbbb);
+    opacity: 0.6; /* Same as Wallberry style */
+    margin-bottom: 0px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: .7;
+    white-space: nowrap; /* Keep meta text on one line */
+    overflow: visible; /* Allow meta to always be visible */
+    flex-shrink: 0; /* Prevent meta from shrinking */
+    order: 1; /* Ensure meta appears first */
+}
+
+.news-headline {
+    font-size: 22px;
+    color: #ffffff;
+    line-height: 1.0;
+    font-weight: 500;
+    word-wrap: break-word;
+    text-align: right;
+    white-space: normal; /* Ensure normal text flow */
+    overflow-wrap: break-word; /* Modern word wrapping */
+    hyphens: none; /* Prevent hyphenation */
+    flex-grow: 1; /* Take remaining space after meta */
+    order: 2; /* Ensure headline appears after meta */
+    max-width: 325px; /* Force earlier line breaks by limiting width */
+    word-break: break-word; /* More aggressive word breaking */
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (max-width: 1080px) {
+    .MMM-CompactNews {
+        max-width: 380px; /* More width for better text flow */
+    }
+    
+    .news-headline {
+        font-size: 20px; /* Slightly smaller but still readable */
+    }
+    
+    .news-meta {
+        padding-right: 10px;
+        font-size: 12px; /* Keep meta text readable - never smaller than 10px */
+    }
+}
+
+/* Ensure adequate spacing for meta text */
+.news-item {
+    min-height: 50px; /* Ensure enough vertical space */
+}
+
+.news-meta {
+    margin-bottom: 2px; /* More space after meta */
+    padding-bottom: 1px; /* Additional padding */
+}

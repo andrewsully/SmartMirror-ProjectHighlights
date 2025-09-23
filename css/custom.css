@@ -1,0 +1,891 @@
+/*
+ * Cleaned CSS for MagicMirror Music Scene (MMM-Lastfm + MMM-PenPlotter)
+ *
+ * This stylesheet removes deprecated MMM-OnSpotify styles,
+ * consolidates redundant rules, and ensures compatibility with
+ * Andrew's MMM-Lastfm-Scenes logic.
+ *
+ * Notes:
+ * - Album art is styled with animations and shadow
+ * - PenPlotter SVGs are transparent
+ * - Holiday/personal calendar colors are preserved
+ */
+
+/* -------------------- Fonts -------------------- */
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Rubik Light'), url('../fonts/rubik-v7-latin-300.woff2') format('woff2'), url('../fonts/rubik-v7-latin-300.woff') format('woff');
+}
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Rubik'), url('../fonts/rubik-v7-latin-regular.woff2') format('woff2'), url('../fonts/rubik-v7-latin-regular.woff') format('woff');
+}
+
+/* -------------------- Root + Body -------------------- */
+:root {
+  --color-text: #ffffff;
+  --color-text-bright: #ffffff;
+  --color-text-dimmed: #bbbbbb;
+  --white-text-color: #ffffff;
+  --grey-text-color: #bbbbbb;
+  --calendar-holiday-border: #6c3baa;
+  --calendar-personal-border: Crimson;
+}
+body {
+  margin: 60px;
+  color: var(--color-text);
+  font-family: "Rubik", sans-serif;
+  font-size: 27px;
+  text-shadow: -1px 2px 2px rgba(0, 0, 0, 0.6);
+  line-height: 1.5em;
+}
+.light {
+  font-weight: 300;
+}
+
+/* -------------------- MMM-Lastfm -------------------- */
+.MMM-Lastfm {
+  width: 100% !important;
+  overflow: visible !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.MMM-Lastfm .standard .symbol {
+  display: none;
+}
+.MMM-Lastfm .standard img {
+  height: 30vh !important;
+  width: auto !important;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+  border-radius: 50%;
+  animation: rotateGlow 30s linear infinite, scalePulse 4s ease-in-out infinite;
+  transform-origin: center center;
+  transition: opacity 0.5s ease-in-out;
+}
+.MMM-Lastfm .standard .title.bright {
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  transition: opacity 0.5s ease-in-out;
+}
+.MMM-Lastfm .standard .title:not(.bright) {
+  font-size: 1rem;
+  opacity: 0.6;
+  transition: opacity 0.5s ease-in-out;
+}
+.MMM-Lastfm .standard table {
+  margin: 1rem auto 0 auto;
+  text-align: center;
+  transition: opacity 0.5s ease-in-out;
+}
+/* MMM-Lastfm - only show on music pages */
+.music_page_rotating .module.MMM-Lastfm,
+.music_page_paused .module.MMM-Lastfm {
+  display: flex !important;
+}
+
+.MMM-Lastfm-Scenes {
+  display: none !important;
+}
+
+/* -------------------- Football Page Space Fix -------------------- */
+
+/* Hide MMM-MyStandings module on football page to prevent overlap with Reddit module */
+.football_page .module.MMM-MyStandings {
+  display: none !important;
+}
+
+/* Center MMM-Reddit module horizontally on football page */
+.football_page .module.MMM-Reddit {
+  text-align: center !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* Center all Reddit content elements */
+.football_page .MMM-Reddit .reddit-item,
+.football_page .MMM-Reddit .reddit-content,
+.football_page .MMM-Reddit .reddit-image,
+.football_page .MMM-Reddit .reddit-title,
+.football_page .MMM-Reddit img {
+  text-align: center !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+
+
+
+
+.football_page .MMM-Reddit .mmm-reddit-wrapper {
+  align-items: center !important;
+  align-content: center !important;
+  justify-content: center !important;
+  justify-items: center !important;
+  justify-self: center !important;
+  text-align: center !important;
+}
+
+/* Target the actual Reddit HTML structure */
+.football_page #mmm-reddit-wrapper {
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+.football_page .MMM-Reddit .table {
+  margin: 0 auto !important;
+}
+
+.football_page .MMM-Reddit .image-container {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* Style Reddit images for fantasy page - horizontal row layout spanning full screen */
+.fantasy_page .MMM-Reddit {
+  width: 100% !important;
+  max-width: none !important; /* Remove any width constraints */
+  display: flex !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* Force all Reddit items to be visible (override any rotation hiding) */
+.fantasy_page .MMM-Reddit .text-row {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.fantasy_page #mmm-reddit-slider {
+  width: 100% !important;
+  max-width: none !important; /* Remove any width constraints */
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.fantasy_page #mmm-reddit-slider .table {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important; /* Center the group of images */
+  flex-wrap: nowrap !important; /* Keep all items on one row */
+  align-items: flex-start !important;
+  width: auto !important; /* Let content determine width */
+  max-width: none !important; /* Remove any width constraints */
+  gap: 20px !important; /* Appropriate spacing for 1080px width */
+  margin: 0 auto !important; /* Center the entire group */
+  padding: 0 !important;
+}
+
+.fantasy_page #mmm-reddit-slider .table .text-row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  flex: 1 !important; /* Each item takes equal space */
+  max-width: 300px !important; /* Reasonable max width per item */
+  margin: 0 !important;
+}
+
+/* Style the actual thumbnail images in headlines mode - optimized for 1080px wide portrait TV */
+.fantasy_page #mmm-reddit-slider .table .text-row .thumbnail img {
+  width: 200px !important; /* Fits 4 across in 1080px width */
+  height: 130px !important; /* Good aspect ratio */
+  max-width: 200px !important; /* Override default constraints */
+  max-height: 130px !important; /* Override default constraints */
+  min-width: 200px !important; /* Ensure consistent sizing */
+  min-height: 130px !important; /* Ensure consistent sizing */
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+  object-fit: cover !important;
+  margin-bottom: 10px !important;
+}
+
+/* Style the thumbnail containers */
+.fantasy_page #mmm-reddit-slider .table .text-row .thumbnail {
+  width: 200px !important;
+  height: 140px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Style the titles below images - larger space for better readability */
+.fantasy_page .reddit-image-row .image-title {
+  text-align: center !important;
+  font-size: 14px !important;
+  color: #ffffff !important;
+  line-height: 1.4 !important;
+  max-width: 200px !important;
+  min-height: 60px !important; /* Reserve space for 3-4 lines of text */
+  margin: 8px 0 4px 0 !important;
+  word-wrap: break-word !important;
+  overflow: visible !important; /* Allow full text to show */
+  display: block !important;
+  padding: 0 5px !important; /* Small side padding for better text flow */
+}
+
+/* Ensure each item container is properly sized for portrait TV */
+.fantasy_page #mmm-reddit-slider .table .text-row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 200px !important; /* Fixed width matching image */
+  margin: 0 !important;
+  flex-shrink: 0 !important; /* Prevent shrinking */
+}
+
+/* Hide unnecessary elements for clean image+title layout */
+.fantasy_page .MMM-Reddit .rank,
+.fantasy_page .MMM-Reddit .score,
+.fantasy_page .MMM-Reddit .comments,
+.fantasy_page .MMM-Reddit .author,
+.fantasy_page .MMM-Reddit .subreddit {
+  display: none !important;
+}
+
+/* Style Reddit titles - using exact selectors from debug */
+.football_page .MMM-Reddit td.title {
+  text-align: center !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+  margin: 12px 0 8px 0 !important;
+  color: #ffffff !important;
+}
+
+/* Style Reddit details/subreddit - using exact selectors from debug */
+.football_page .MMM-Reddit td.details {
+  text-align: center !important;
+  margin-top: 4px !important;
+}
+
+.football_page .MMM-Reddit .subreddit {
+  background: rgba(255,255,255,0.1) !important;
+  padding: 4px 8px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  color: #aaa !important;
+  display: inline-block !important;
+}
+
+/* Only apply opacity to the compliments page EyeCandy */
+.compliments_page .eyecandygif {
+  opacity: 0.4 !important;
+}
+
+/* Specific styling for music page EyeCandy */
+.music_eyecandy {
+  opacity: 1 !important; /* Full opacity for music page */
+}
+
+/* Wave gesture GIF - hidden by default */
+.wave_gif {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: all 0.5s ease-in-out !important;
+}
+
+/* -------------------- MMM-BackgroundSlideshow -------------------- */
+/* Lower opacity on rotating music page */
+.music_page_rotating .MMM-BackgroundSlideshow img {
+  opacity: 0.2 !important;
+}
+
+/* Full opacity on paused music page */
+.music_page_paused .MMM-BackgroundSlideshow img {
+  opacity: 1 !important;
+}
+
+
+/* -------------------- CalendarExt2 -------------------- */
+.CX2 .slot > .slotContent,
+.CX2 .slot .event {
+  background: none;
+}
+.CX2 .slot .slotHeader,
+.CX2 .agenda .eventSub,
+.CX2 .eventTime .endTime,
+.CX2 .eventTime .endDateTime {
+  display: none !important;
+}
+.CX2 .upcoming .event[data-calendar-name="holiday"] {
+  border-left: 4px solid var(--calendar-holiday-border);
+  color: var(--white-text-color);
+}
+.CX2 .upcoming .event[data-calendar-name="personal"] {
+  border-left: 4px solid var(--calendar-personal-border);
+  color: var(--white-text-color);
+}
+/* Hide fake CalendarExt2 when Minimonth is hidden */
+#module_5_MMM-CalendarExtMinimonth.hidden ~ .fake_module.MMM-CalendarExt2,
+.MMM-CalendarExtMinimonth.hidden ~ .fake_module.MMM-CalendarExt2 {
+  display: none !important;
+}
+
+/* Limit width of CX2 upcoming view */
+.CX2 .upcoming {
+  max-width: 250px; /* Adjust to fit your layout */
+}
+
+
+
+/* -------------------- Weather Styling -------------------- */
+.MMM-OpenWeatherMapForecast,
+.weather3_daily,
+.weather3_daily .forecast-icon-container,
+.weather3_daily * {
+  color: var(--white-text-color) !important;
+}
+.MMM-OpenWeatherMapForecast .low-temperature,
+.weather2_hourly,
+.weather2_hourly * {
+  color: var(--grey-text-color) !important;
+}
+.weather2_hourly {
+    /* Remove scaling, use direct size reduction instead */
+    position: relative !important;
+    margin-left: auto !important; /* Push to right side */
+    margin-right: 5px !important; /* 5px from edge */
+    text-align: right !important; /* Right-align content */
+    width: fit-content !important; /* Only take needed space */
+    float: right !important; /* Force right alignment */
+}
+
+.weather2_hourly.MMM-OpenWeatherMapForecast .wrapper.tiled .forecast-container .forecast-item {
+    min-width: 10px !important;
+    padding: 0px !important;
+}
+  
+  /* Direct size reduction for weather2_hourly elements - more specific selector */
+.homepage_page .weather2_hourly .MMM-OpenWeatherMapForecast .wrapper.tiled .forecast-container .forecast-item .forecast-icon {
+    width: 42px !important; /* 60% of original 70px */
+    height: 42px !important; /* 60% of original 70px */
+    margin: 2px auto !important; /* 60% of original 4px */
+}
+  
+  /* Alternative selector in case the above doesn't work */
+.weather2_hourly .forecast-icon {
+    width: 40px !important;
+    height: 40px !important;
+    margin: 0px, 0px !important;
+}
+.weather2_hourly .forecast-item hourly {
+  font-size: 12px !important;
+  max-width: 46px !important;
+}
+.MMM-OpenWeatherMapForecast .wrapper.tiled .forecast-container {
+  display: inline-flex !important;
+  gap: 16px !important; /* Add space between each forecast item */
+}
+
+/* Hide feels like temperature in weather1_header */
+.weather1_header .current.feelslike {
+  display: none !important; /* Completely hide and remove from layout */
+}
+
+/* Hide header row in weather3_daily */
+.weather3_daily .header-row {
+  display: none !important; /* Completely hide and remove from layout */
+}
+
+/* Add custom header for weather3_daily - outside table structure */
+.weather3_daily .wrapper::before {
+  content: "5-Day Forecast";
+  display: block;
+  text-align: right;
+  font-size: 16px;
+  font-weight: bolder;
+  color: var(--grey-text-color, #bbbbbb); /* Same grey as NFL league label */
+  opacity: 0.6; /* Same opacity as Wallberry league label */
+  margin-bottom: 10px;
+  padding-bottom: 1px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  width: 100%; /* Take full width of module */
+  line-height: .9;
+  margin-bottom: 2px;
+}
+
+/* Control vertical spacing in weather1_header */
+.weather1_header .extra-current-conditions-wrapper {
+  margin-top: 10px !important; /* Add space before high/low temps */
+  margin-bottom: 0 !important; /* Remove space after high/low temps */
+}
+
+.weather1_header .summary-wrapper {
+  margin-top: 5px !important; /* Reduce space before summary */
+}
+  
+
+.homepage_page .region.top.right .small {
+  font-size: var(--font-size-small);
+  line-height: .7;
+}
+
+
+
+.small {
+  font-size: var(--font-size-small);
+  line-height: .7;
+}
+
+
+.weather2_hourly .forecast-item {
+    font-size: 12px !important; /* Smaller text */
+    display: flex !important; /* Enable flexbox for vertical control */
+    flex-direction: column !important; /* Stack items vertically */
+    justify-content: flex-start !important; /* Align content to TOP */
+    align-items: center !important; /* Center horizontally */
+    height: auto !important; /* Let content determine height */
+}
+
+
+.weather2_hourly {
+  margin-bottom: 15px !important;
+  line-height: 1 !important;
+}
+.weather2_hourly .temperature {
+  font-size: 16px !important;
+}
+
+
+
+
+.weather2_hourly .MMM-OpenWeatherMapForecast .wrapper.tiled .forecast-container .forecast-item .forecast-icon {
+  width: 50px !important;
+  height: 50px !important;
+  margin: 1px auto !important;
+}
+
+.weather1_header {
+  margin-bottom: 4px !important;
+}
+
+
+
+/* Right-align MMM-CompactNews within top_right region */
+.football_page .region.top.right .container {
+  display: flex !important;
+  justify-content: flex-end !important; /* Push content to right edge */
+  align-items: flex-start !important; /* Align to top of container */
+}
+
+.football_page .region.top.right .module.MMM-CompactNews {
+  margin-left: auto !important; /* Push to right edge */
+  text-align: right !important; /* Right-align text content */
+}
+
+
+/* Hide the header and table headers */
+.fantasy_page .MMM-NFL header {
+  display: none !important; /* Hide "NFL REG 2025 Week 3" */
+}
+
+.fantasy_page .MMM-NFL thead {
+  display: none !important; /* Hide entire table header row */
+}
+
+/* Hide date/time column */
+.fantasy_page .MMM-NFL tbody tr td:first-child {
+  display: none !important; /* Hide first column (dates/times) */
+}
+
+/* Hide team abbreviation text */
+.fantasy_page .MMM-NFL tbody tr td span {
+  display: none !important; /* Hide team abbreviations (BUF, MIA, etc.) */
+}
+
+/* Keep logos and scores, make layout tighter */
+.fantasy_page .MMM-NFL .logo {
+  display: inline-block !important; /* Keep team logos */
+  margin: 0 4px !important; /* Tighter spacing around logos */
+}
+
+/* Style the score cells */
+.fantasy_page .MMM-NFL tbody tr td:nth-child(3),
+.fantasy_page .MMM-NFL tbody tr td:nth-child(4),
+.fantasy_page .MMM-NFL tbody tr td:nth-child(5) {
+  font-weight: bold !important; /* Bold scores and colon */
+  padding: 0 2px !important; /* Tight spacing */
+}
+
+/* Tighter table spacing */
+.fantasy_page .MMM-NFL .table {
+  border-spacing: 2px 1px !important; /* Much tighter spacing */
+  border-collapse: separate !important;
+}
+
+.fantasy_page .MMM-NFL .row {
+  margin: 1px 0 !important; /* Tighter row spacing */
+}
+
+
+
+/* .fantasy_page .region.top.bar {
+  margin-top: 0 !important; 
+  padding-top: 0 !important; 
+} */
+
+/* .fantasy_page .region.top.bar .container {
+  margin-top: 0 !important; 
+  padding-top: 0 !important; 
+  vertical-align: top !important; 
+} */
+
+/* Force FantasyTracker header to stay on screen */
+.fantasy_page .mmm-fantasy-tracker {
+  margin-top: 170px !important; /* Push entire module down so header stays visible */
+  margin-left: 86px !important; /* 86px */
+  margin-right: 86px !important; /* 86px */
+  position: relative !important;
+  padding-left: 40px !important;
+}
+
+/* Force FantasyTracker header to stay on screen */
+.fantasy_page .mmm-fantasy-tracker {
+  margin-top: 150px !important; /* Push entire module down so header stays visible */
+  position: relative !important;
+}
+.fantasy_page .mmm-fantasy-tracker {
+    width: 709px !important;
+}
+.fantasy_page .matchup-header {
+  padding-top: 15px !important; /* Reduce header top padding to fit on screen */
+}
+
+/* Center scoreboard above standings in bottom_bar */
+.football_page .MMM-ScoreboardNew {
+  scale: 1.2 !important;
+  display: flex !important;
+  justify-content: center !important; /* Center horizontally */
+  align-items: center !important; /* Center vertically if needed */
+  margin-bottom: 20px !important; /* Space above standings */
+  width: 100% !important; /* Full width for centering */
+}
+
+.football_page .module.MMM-ScoreboardNew .wrapper {
+  text-align: center !important; /* Center text within the wrapper */
+}
+.MMM-NFLDivisionsGrid {
+  padding-right: 100px !important;
+  padding-bottom: 40px !important;
+
+}
+
+
+
+/* .MMM-MyScoreboard,
+.MMM-MyStandings {
+  opacity: 0.7 !important;
+} */
+
+/* -------------------- Pinfo + Zones -------------------- */
+.MMM-Pinfo {
+  opacity: 0.5 !important;
+}
+.MMM-Pinfo .module-header {
+  display: none !important;
+}
+.wbclock__zones .city {
+  color: var(--grey-text-color);
+}
+.wbclock__zones .time,
+.wbclock__zones .ampm,
+.wbclock .local .time,
+.wbclock__date {
+  color: var(--white-text-color);
+}
+
+/* -------------------- MMM-Volume -------------------- */
+/* Removed CSS override to allow module's built-in visibility logic */
+
+/* Custom styling for MMM-Volume to match site theme */
+#VOLUME_CONTAINER {
+  top: calc(50% - 20px) !important;
+  left: calc(50% - 100px) !important;
+  width: 200px !important;
+  height: 40px !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border-radius: 20px !important;
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  position: fixed !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 9999 !important;
+  /* Push down to avoid gesture text */
+  /* margin-top: 0px !important; */
+}
+
+#VOLUME_TEXT {
+  position: absolute !important;
+  width: 200px !important;
+  height: 40px !important;
+  top: 0 !important;
+  left: 0 !important;
+  color: #ffffff !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  line-height: 40px !important;
+  z-index: 10000 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+#VOLUME_BAR {
+  position: absolute !important;
+  width: 0% !important;
+  height: 40px !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 9999 !important;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A) !important;
+  border-radius: 18px !important;
+  transition: width 0.3s ease-in-out !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+#VOLUME_CONTAINER.hidden {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: visibility 0s 0.5s, opacity 0.5s ease-in-out !important;
+}
+
+/* Force hidden state by default to prevent stuck visibility */
+#VOLUME_CONTAINER {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+#VOLUME_CONTAINER:not(.hidden) {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* -------------------- MMM-Scenes2 Indicator -------------------- */
+.scenes_indicator {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  padding: 8px 16px !important;
+  border-radius: 8px 8px 0 0 !important;
+  font-size: 18px !important;
+  letter-spacing: 8px !important;
+}
+
+.scenes_indicator_scene {
+  color: rgba(255, 255, 255, 0.6) !important;
+  transition: color 0.3s ease !important;
+}
+
+.scenes_indicator_scene.active {
+  color: #ffffff !important;
+  font-weight: bold !important;
+}
+
+/* -------------------- Animation Keyframes -------------------- */
+@keyframes rotateGlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes scalePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+
+
+
+
+
+.music_eyecandy {
+  background-color: transparent !important;
+}
+
+/* -------------------- MMM-SimpleStats -------------------- */
+.simple-stats {
+    opacity: 0.4 !important;
+    position: fixed !important;
+    right: 30px !important;
+    bottom: 15px !important;
+    z-index: 999;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: right !important;
+}
+
+.simple-stats .stats-table {
+    text-align: right !important;
+}
+
+.volume-display {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.volume-animate {
+    animation: volumeChange 2s ease-out;
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+}
+
+@keyframes volumeChange {
+    0% {
+        font-size: 15px;
+        opacity: 0.25;
+        font-weight: normal;
+        color: #ffffff;
+    }
+    25% {
+        font-size: 18px;
+        opacity: 1;
+        font-weight: bold;
+        color: #ffffff;
+    }
+    75% {
+        font-size: 18px;
+        opacity: 1;
+        font-weight: bold;
+        color: #ffffff;
+    }
+    100% {
+        font-size: 15px;
+        opacity: 0.25;
+        font-weight: normal;
+        color: #ffffff;
+    }
+}
+
+
+
+
+
+
+
+
+.MMM-FantasyStandings .header-stat {
+  height: 0;
+}
+
+/* Fix team name text alignment and font size */
+.MMM-FantasyStandings .team-name {
+  text-align: left !important; /* Force left alignment */
+  font-size: 12px !important; /* Decreased font size */
+  font-weight: 600 !important; /* Decreased font weight */
+  line-height: .9 !important; /* Decreased font weight */
+}
+
+/* Ensure owner names are visible */
+.MMM-FantasyStandings .owner-name {
+  display: block !important; /* Ensure it's visible */
+  opacity: .3 !important; /* Make sure it's not hidden */
+  text-align: left !important; /* Force left alignment */
+}
+
+/* Your team row - blue glow effect using direct box-shadow */
+.MMM-FantasyStandings .standings-table .your-team-row {
+  position: relative !important;
+  box-shadow: inset 0 0 25px rgba(0, 150, 255, 0.8) !important; /* Direct blue inner glow */
+  border-radius: 5px !important;
+  background-color: rgba(0, 150, 255, 0.1) !important; /* Subtle blue background tint */
+}
+
+
+.MMM-FantasyStandings .stats-table {
+  height: 0;
+}
+
+.MMM-FantasyStandings .stat-value {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Reduce spacing between W, L, PF columns */
+.MMM-FantasyStandings .stats-container {
+  gap: 1px !important; /* Add small gap between columns */
+  grid-template-columns: 40px 40px 40px !important; /* Fixed widths instead of 1fr 1fr 1fr */
+}
+
+/* Tighten up the column headers too */
+.MMM-FantasyStandings .header-right-bottom {
+  gap: 1px !important;
+  grid-template-columns: 40px 40px 40px !important; /* Match the stats columns */
+}
+
+/* Clip excess space on right side */
+.MMM-FantasyStandings .right-side {
+  width: 125px !important; /* Reduce from 152px to clip excess */
+  overflow: visible !important; /* Allow arrow to show */
+}
+
+/* Fix the arrow positioning */
+.MMM-FantasyStandings .header-row .right-side:before {
+  content: "" !important;
+  position: absolute !important;
+  left: -20px !important;
+  top: 23.45px !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-style: solid !important;
+  border-width: 0 0 23.45px 20px !important;
+  border-color: transparent transparent #fff transparent !important;
+  z-index: 3 !important;
+}
+
+/* League name styling */
+.MMM-FantasyStandings .header-left-bottom {
+  font-weight: 900 !important; /* All bold */
+  opacity: 0.5 !important; /* 50% opacity */
+}
+
+
+/* Two-column layout */
+
+.MMM-NFLMinimal .columns-container {
+  display: flex;
+  gap: 10px !important; /* Space between columns */
+  justify-content: center;
+}
+
+
+/* Allow fantasy page modules to reach screen edges */
+.fantasy_page {
+  margin: 0 !important;
+}
+
+/* Specifically position FantasyStandings in bottom-left corner with margin */
+.fantasy_page .MMM-FantasyStandings {
+  position: fixed !important;
+  bottom: 60px !important; /* Respect body margin */
+  left: 120px !important; /* Respect body margin + 20px extra space */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Specifically position NFLMinimal in bottom-right corner with margin */
+.fantasy_page .MMM-NFLMinimal {
+  position: fixed !important;
+  bottom: 60px !important; /* Respect body margin */
+  right: 60px !important; /* Respect body margin */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+

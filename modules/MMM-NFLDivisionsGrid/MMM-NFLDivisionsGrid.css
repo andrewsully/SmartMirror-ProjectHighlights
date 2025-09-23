@@ -1,0 +1,224 @@
+/*
+ * MMM-NFLDivisionsGrid
+ * Copy MMM-MyStandings styling exactly for consistency
+ */
+
+.MMM-NFLDivisionsGrid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(1.10); /* 10% larger overall */
+    transform-origin: center;
+}
+
+.MMM-NFLDivisionsGrid .loading {
+    font-size: 1.2rem;
+    opacity: 0.6;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Divisions row within conference container */
+.divisions-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0; /* No margin - let conference container handle spacing */
+    padding: 0; /* No padding - let conference container handle spacing */
+}
+
+/* Conference-level containers with uniform spacing and colored borders */
+.conference-container {
+    background: rgba(255, 255, 255, 0.03); /* Light background for each conference */
+    border-radius: 6px; /* Same rounded corners as divisions */
+    padding: 10px; /* Uniform 10px on all sides */
+    margin: 10px; /* Uniform 10px margin on all sides */
+    display: flex;
+    justify-content: center; /* Center the divisions within */
+}
+
+/* AFC container - red border */
+.conference-container.afc-container {
+    border: 2px solid rgba(255, 0, 0, 0.4); /* Red border for AFC */
+}
+
+/* NFC container - blue border */
+.conference-container.nfc-container {
+    border: 2px solid rgba(0, 0, 255, 0.4); /* Blue border for NFC */
+}
+
+.division-container {
+    flex: 1;
+    max-width: 150px;
+    background: rgba(26, 26, 26, 0.3); /* Reduced from 0.5 to account for conference background */
+    border-radius: 6px;
+    padding: 5px;
+    margin: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.03); /* Reduced from 0.05 */
+}
+
+/* Table styling with larger fonts */
+.MMM-NFLDivisionsGrid .standings {
+    border-collapse: collapse;
+    font-size: 18px; /* Increased from 16px */
+    line-height: 28px; /* Increased from 24px */
+    width: 100%;
+    table-layout: fixed;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 4px;
+}
+
+/* Tighter column distribution */
+.MMM-NFLDivisionsGrid .standings td {
+    padding: 1px 2px; /* Reduced padding everywhere */
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Logo column gets more space */
+.MMM-NFLDivisionsGrid .standings td.logo {
+    width: 50%; /* Logo takes more space */
+    height: 24px;
+    overflow: hidden;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0;
+    position: relative;
+}
+
+/* W and L columns much narrower */
+.MMM-NFLDivisionsGrid .league-separator td:first-child {
+    width: 50%; /* Division name takes half */
+    text-align: left;
+    padding: 0; /* No cell padding - background goes to edge */
+}
+
+.MMM-NFLDivisionsGrid .league-separator td:nth-child(2),
+.MMM-NFLDivisionsGrid .league-separator td:nth-child(3) {
+    width: 25%; /* W and L columns half width */
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+}
+
+.MMM-NFLDivisionsGrid .standings tr td:nth-child(2),
+.MMM-NFLDivisionsGrid .standings tr td:nth-child(3) {
+    width: 25%; /* W and L data columns */
+    text-align: center;
+}
+
+/* Division header text padding */
+.MMM-NFLDivisionsGrid .league-separator td:first-child > span {
+    padding-left: 6px;
+    padding-right: 2px;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-shadow: none;
+}
+
+/* Alternating row colors - reduced to account for conference background */
+.MMM-NFLDivisionsGrid .standings tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.04); /* Reduced from 0.06 */
+}
+
+.MMM-NFLDivisionsGrid .standings tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.01); /* Reduced from 0.02 */
+}
+
+/* Enhanced separator line */
+.MMM-NFLDivisionsGrid .league-separator {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Logo scaling - slightly larger */
+.MMM-NFLDivisionsGrid .logo img {
+    width: 22px; /* Increased from 20px */
+    height: 22px; /* Increased from 20px */
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1.2) translateY(-50%);
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 50%;
+}
+
+.MMM-NFLDivisionsGrid .logo {
+    width: 22px; /* Increased from 20px */
+    height: 22px; /* Increased from 20px */
+}
+
+/* League separator with larger fonts */
+.MMM-NFLDivisionsGrid .league-separator {
+    font-size: 14px; /* Increased from 12px */
+    line-height: 16px; /* Increased from 14px */
+    text-transform: uppercase;
+    margin-top: 5px;
+    border-bottom: solid 1px #222;
+    text-align: left;
+    padding: 0;
+}
+
+.MMM-NFLDivisionsGrid .league-separator > td > span {
+    color: #000;
+    font-weight: bold;
+    padding-left: 4px;
+    padding-right: 2px;
+    background-color: #FFF;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    white-space: nowrap;
+    font-size: 13px; /* Increased from 11px */
+}
+
+.MMM-NFLDivisionsGrid .league-separator > td > span:after {
+    content: "";
+    width: 0;
+    height: 0;
+    display: inline-block;
+    vertical-align: top;
+    border-style: solid;
+    border-width: 16px 0 0 14px; /* Larger arrow to match increased font sizes */
+    border-color: transparent transparent transparent #FFF;
+    margin-right: -14px; /* Adjusted for larger arrow */
+    position: relative;
+    right: -2px;
+}
+
+/* Color the arrows to match 0.6 opacity white */
+.MMM-NFLDivisionsGrid .league-separator td[data-conference="afc"] > span:after {
+    border-left-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.MMM-NFLDivisionsGrid .league-separator td[data-conference="nfc"] > span:after {
+    border-left-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.MMM-NFLDivisionsGrid .bold {
+    font-weight: bold;
+    padding-left: 6px; /* Smaller padding for grid */
+}
+
+/* Team row styling with larger fonts */
+.MMM-NFLDivisionsGrid .standings tr {
+    font-size: 16px; /* Increased from 14px */
+}
+
+.MMM-NFLDivisionsGrid .standings td {
+    padding: 2px 4px;
+    font-size: 14px; /* Increased from 12px */
+}
+
+/* Alternating row colors - copy from existing MagicMirror patterns */
+.MMM-NFLDivisionsGrid .standings tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.MMM-NFLDivisionsGrid .standings tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.02);
+}

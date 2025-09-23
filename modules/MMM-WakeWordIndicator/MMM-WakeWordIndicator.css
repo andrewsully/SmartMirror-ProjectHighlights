@@ -1,0 +1,137 @@
+.wake-word-indicator {
+    position: relative;
+    z-index: 1000;
+}
+
+.wake-indicator {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 20px;
+    padding: 20px 30px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease-in;
+}
+
+.wake-indicator.wake {
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.wake-indicator.listening {
+    border-color: #888888;
+    box-shadow: 0 0 20px rgba(136, 136, 136, 0.5);
+}
+
+.wake-indicator.processing {
+    border-color: #ff6600;
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
+}
+
+.wake-indicator.speaking {
+    border-color: #ffa500;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+}
+
+.wake-indicator.error {
+    border-color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+
+/* Voice Assistant GIFs */
+.gif-container {
+    margin-bottom: 15px;
+}
+
+.voice-gif {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Spoken Text Display */
+.spoken-text-container {
+    margin-top: 15px;
+    width: 100%;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* Text-only display (no border/background) */
+.spoken-text-container.text-only {
+    margin-top: 0;
+    padding: 20px;
+}
+
+.spoken-text {
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-size: 20px;
+    line-height: 1.4;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Word styling for text display */
+.word {
+    display: inline;
+    margin: 0 2px;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.current-word {
+    background-color: rgba(255, 165, 0, 0.3);
+    color: #ffa500;
+    font-weight: bold;
+}
+
+.spoken-word {
+    color: #ffffff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .wake-indicator {
+        padding: 15px 20px;
+        border-radius: 15px;
+    }
+    
+    .wake-text {
+        font-size: 40px;
+    }
+    
+    .wake-subtitle {
+        font-size: 30px;
+    }
+    
+    .spoken-text {
+        font-size: 16px;
+    }
+    
+    .spoken-text-container {
+        max-width: 95vw;
+    }
+}

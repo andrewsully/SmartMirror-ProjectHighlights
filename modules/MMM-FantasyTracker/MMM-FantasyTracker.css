@@ -1,0 +1,815 @@
+/*
+ * MMM-FantasyTracker
+ * Fantasy Football Live Matchup Tracker for MagicMirror
+ * ESPN-inspired design
+ */
+
+/* -------------------- Module Container -------------------- */
+.mmm-fantasy-tracker {
+    /* Reasonable module styling without excessive overrides */
+    font-family: 'Roboto', 'Segoe UI', sans-serif !important;
+    color: #ffffff !important;
+    font-size: 16px !important;
+    line-height: 1.0 !important;
+    text-align: left !important;
+    margin: 20px auto !important; /* Add some top margin for breathing room */
+    padding: 10px !important; /* Add some padding so it doesn't touch screen edge */
+    width: auto !important;
+    height: auto !important;
+    display: block !important;
+    position: relative !important;
+}
+
+/* Position module at top of screen instead of centering */
+.fantasy_page .mmm-fantasy-tracker {
+    position: relative !important;
+    top: 0 !important;
+    left: auto !important;
+    transform: scale(1.5) !important; /* Keep scale but remove centering */
+    z-index: auto !important;
+    margin: 0 auto !important; /* Center horizontally only */
+}
+
+.mmm-fantasy-tracker * {
+    /* Force all child elements to ignore MM defaults */
+    box-sizing: border-box !important;
+    font-family: inherit !important;
+    line-height: inherit !important;
+    text-align: inherit !important;
+}
+
+/* -------------------- Main Container -------------------- */
+.matchup-container {
+    /* Locked dimensions - identical in dev and MM */
+    width: 650px !important;
+    height: 800px !important;
+    margin: 0 auto !important;
+    background: #2a2a2a !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    /* Prevent any external influence */
+    /* box-sizing: border-box !important;
+    position: relative !important; */
+}
+
+/* -------------------- Header Section -------------------- */
+.matchup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 12px; /* Increased to use more of the 800px height */
+    background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+    border-bottom: 2px solid #444;
+}
+
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    flex: 1; /* Equal width for both team sections */
+    min-width: 0; /* Allow content to shrink if needed */
+}
+
+/* Remove gap for home team to align logo to right edge */
+#homeTeam {
+    gap: 0 !important;
+    justify-content: flex-end !important; /* Push content to right edge */
+}
+
+/* Add spacing between logo and text for home team */
+#homeTeam .team-logo {
+    margin-left: 12px; /* Small gap between text and logo */
+}
+
+/* Ensure away team has proper spacing */
+#awayTeam .team-logo {
+    margin-right: 12px; /* Small gap between logo and text */
+}
+
+.team-logo {
+    width: 60px;
+    height: 60px;
+    background: #444;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0; /* Prevent container from stretching */
+    aspect-ratio: 1 !important; /* Force perfect circle container */
+    border: 2px solid  rgb(55, 55, 55);
+}
+
+.team-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    aspect-ratio: 1 !important; /* Force perfect circle */
+}
+
+.team-logo-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    background: #444;
+    color: #fff;
+}
+
+.team-details h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-align: left !important; /* Override MagicMirror center alignment */
+    line-height: 1.1 !important; /* Tight line spacing for multi-line team names */
+    margin-block-start: 5px !important;
+}
+
+.team-details .owner {
+    font-size: 14px;
+    color: #aaa;
+    text-align: left !important; /* Override MagicMirror center alignment */
+}
+
+.team-details .record {
+    font-size: 12px;
+    color: #888;
+}
+
+.standing-rank {
+    color: #888; /* Same gray color as the old record text */
+}
+
+.team-record {
+    font-weight: bold; /* Make only the record (1-1) bold */
+}
+
+/* Right-aligned team details (for your team) */
+.team-details-right h2 {
+    text-align: right !important;
+}
+
+.team-details-right .owner {
+    text-align: right !important;
+}
+
+/* -------------------- Score Display -------------------- */
+.score-display {
+    text-align: center;
+    flex: 0 0 220px; /* Smaller fixed width - more space for team names */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.0 !important;
+}
+
+.current-score {
+    font-size: 48px; /* Default size - will be overridden by JavaScript for wide scores */
+    font-weight: bold;
+    margin-bottom: 8px;
+    line-height: 1.0 !important;
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden; /* Hide overflow if needed */
+    text-overflow: ellipsis; /* Show ellipsis if text is too long */
+    max-width: 100%; /* Ensure it doesn't exceed container width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* Space between scores and dash */
+    transition: font-size 0.3s ease; /* Smooth transition when font size changes */
+}
+
+/* Smart scaling for individual score spans */
+.current-score span {
+    font-size: inherit; /* Inherit the responsive font size */
+    min-width: 0; /* Allow shrinking */
+    flex-shrink: 1; /* Allow spans to shrink if needed */
+    text-align: center;
+    transition: font-size 0.3s ease; /* Smooth transition */
+}
+
+/* CSS fallback for very wide scores (when JavaScript doesn't run) */
+.current-score[data-opponent-score="100"][data-your-score="100"],
+.current-score[data-opponent-score="99"][data-your-score="99"] {
+    font-size: 32px !important;
+}
+
+/* CSS fallback for medium-wide scores */
+.current-score[data-opponent-score="99"][data-your-score="98"],
+.current-score[data-opponent-score="98"][data-your-score="99"] {
+    font-size: 40px !important;
+}
+
+/* Media query for very constrained spaces */
+@media (max-width: 300px) {
+    .current-score {
+        font-size: clamp(18px, 6vw, 32px) !important; /* Force smaller font for very constrained spaces */
+    }
+}
+
+.win-probability {
+    width: 180px; /* Proportional to smaller score section */
+    height: 4px;
+    background: #444;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0px 0;
+    line-height: 1.0 !important;
+}
+
+.win-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #66BB6A, #8BC34A);
+    transition: width 0.5s ease;
+    transform-origin: right; /* Always fills from the right (your side) */
+    
+}
+
+.probability-text {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 6px;
+    line-height: 1.0 !important;
+}
+
+/* -------------------- Lineup Section -------------------- */
+.lineup-container {
+    display: flex;
+    flex: 1; /* Take up remaining space in container */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.team-lineup {
+    flex: 1;
+    padding: 4px 12px; /* More vertical padding to fill space update changed from 18px to 4*/
+}
+
+.lineup-header {
+    font-size: 16px;
+    font-weight: bold;
+    padding-top:4px; /* Increased spacing */
+    padding-bottom:4px; /* Increased spacing */
+    border-bottom: 1px solid #444;
+    text-align: center !important; /* Override MagicMirror center alignment */
+    margin-bottom:5px;
+    color: #888;
+    opacity: 0.8;
+    text-transform: uppercase; /* Capitalize all characters */
+    letter-spacing: 2px; /* Increased spacing between letters */
+}
+
+.player-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0; /* Increased padding to fill 800px height */
+    border-bottom: 1px solid #333;
+    transition: background 0.2s ease;
+    height: 58px; /* Taller rows to use available space */
+}
+
+
+
+/* Highlight completed games */
+.player-row.completed {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px; /* Rounded corners for completed games */
+    margin: 2px 0; /* Small margin to separate from other rows */
+}
+
+/* Subtle darkening for live games */
+.player-row.live {
+    background: rgba(45, 45, 45, 0.4); /* More visible darkening for live players */
+    border-radius: 4px; /* Slight rounding */
+    transition: background 0.3s ease; /* Smooth transition when status changes */
+}
+
+/* Team-colored glow for live player avatars */
+.player-row.live .player-avatar {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.8); /* Increased intensity default green glow */
+    transition: box-shadow 0.3s ease; /* Smooth transition when status changes */
+}
+
+/* Team-colored borders for all players */
+.player-avatar.team-ARI { border: 2px solid #97233F !important; }
+.player-avatar.team-ATL { border: 2px solid #A71930 !important; }
+.player-avatar.team-BAL { border: 2px solid #241773 !important; }
+.player-avatar.team-BUF { border: 2px solid #C60C30 !important; }
+.player-avatar.team-CAR { border: 2px solid #0085CA !important; }
+.player-avatar.team-CHI { border: 2px solid #0B162A !important; }
+.player-avatar.team-CIN { border: 2px solid #FB4F14 !important; }
+.player-avatar.team-CLE { border: 2px solid #582B20 !important; }
+.player-avatar.team-DAL { border: 2px solid #041E42 !important; }
+.player-avatar.team-DEN { border: 2px solid #FB4F14 !important; }
+.player-avatar.team-DET { border: 2px solid #0076B6 !important; }
+.player-avatar.team-GB { border: 2px solid #003322 !important; }
+.player-avatar.team-HOU { border: 2px solid #03203F !important; }
+.player-avatar.team-IND { border: 2px solid #002C5F !important; }
+.player-avatar.team-JAX { border: 2px solid #006778 !important; }
+.player-avatar.team-KC { border: 2px solid #E31837 !important; }
+.player-avatar.team-LV { border: 2px solid #A5ACAF !important; }
+.player-avatar.team-LAC { border: 2px solid #0080C6 !important; }
+.player-avatar.team-LAR { border: 2px solid #003594 !important; }
+.player-avatar.team-MIA { border: 2px solid #008E97 !important; }
+.player-avatar.team-MIN { border: 2px solid #4F2683 !important; }
+.player-avatar.team-NE { border: 2px solid #002244 !important; }
+.player-avatar.team-NO { border: 2px solid #D3BC8D !important; }
+.player-avatar.team-NYG { border: 2px solid #0D2266 !important; }
+.player-avatar.team-NYJ { border: 2px solid #003F2D !important; }
+.player-avatar.team-PHI { border: 2px solid #004C55 !important; }
+.player-avatar.team-PIT { border: 2px solid #FFB612 !important; }
+.player-avatar.team-SF { border: 2px solid #AA0000 !important; }
+.player-avatar.team-SEA { border: 2px solid #002244 !important; }
+.player-avatar.team-TB { border: 2px solid #A71930 !important; }
+.player-avatar.team-TEN { border: 2px solid #4B92DB !important; }
+.player-avatar.team-WSH { border: 2px solid #5A1414 !important; }
+
+
+
+/* Remove border from completed players' avatars */
+.player-row.completed .player-avatar {
+    background: #2a2a2a !important;
+    border: 2px solid rgba(255,255,255,0.05) !important;
+}
+
+.player-row.completed .team-logo {
+    border: none !important;
+}
+
+.player-avatar {
+    width: 50px; /* Increased from 45px */
+    height: 50px; /* Increased from 45px */
+    border-radius: 50%;
+    background: #444;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    overflow: hidden; /* Always crop player images to circle */
+    position: relative;
+    border: 2px solid rgba(255,255,255,0.05); /* Default subtle border */
+    transition: border-color 0.3s ease; /* Smooth transition when status changes */
+}
+
+.player-headshot {
+    width: 150%; /* Keep your preferred zoom level */
+    height: 150%; /* Keep your preferred zoom level */
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Clown mode styles - make player row relative for positioning */
+.player-row {
+    position: relative; /* Allow absolute positioning of clown wig within row */
+}
+
+.clown-wig-overlay {
+    position: absolute;
+    /* Position relative to the entire player row, targeting the avatar area */
+    top: 50%;
+    left: 22.5px; /* Half of avatar width (45px/2) to center on avatar */
+    transform: translate(-50%, -80%); /* Center horizontally and position above */
+    width: 50px;
+    height: 50px;
+    background-image: url('clown-wig.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none; /* Don't interfere with clicks */
+    z-index: 9999; /* Ultra high z-index so it appears above everything */
+    opacity: 0.9;
+    /* Ensure this doesn't affect layout of other elements */
+    margin: 0;
+    padding: 0;
+}
+
+
+.clown-typing-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Use cover like ESPN logos to fill circle */
+    border-radius: 50% !important; /* Make it circular like other team logos */
+}
+
+/* Special styling for D/ST team logos in player avatars */
+.dst-logo {
+    object-fit: contain !important;
+    padding: 8px !important;
+    background: #333 !important;
+}
+
+/* -------------------- NFL Team Colors for Player Avatars -------------------- */
+/* Arizona Cardinals */
+.player-avatar.team-ARI { background: #97233F !important; }
+
+/* Atlanta Falcons */
+.player-avatar.team-ATL { background: #A71930 !important; }
+
+/* Baltimore Ravens - Using Purple instead of Black */
+.player-avatar.team-BAL { background: #241773 !important; }
+
+/* Buffalo Bills */
+.player-avatar.team-BUF { background: #C60C30 !important; }
+
+/* Carolina Panthers - Using Blue instead of Black */
+.player-avatar.team-CAR { background: #0085CA !important; }
+
+/* Chicago Bears */
+.player-avatar.team-CHI { background: #0B162A !important; }
+
+/* Cincinnati Bengals */
+.player-avatar.team-CIN { background: #FB4F14 !important; }
+
+/* Cleveland Browns */
+.player-avatar.team-CLE { background: #582B20 !important; }
+
+/* Dallas Cowboys */
+.player-avatar.team-DAL { background: #041E42 !important; }
+
+/* Denver Broncos */
+.player-avatar.team-DEN { background: #FB4F14 !important; }
+
+/* Detroit Lions */
+.player-avatar.team-DET { background: #0076B6 !important; }
+
+/* Green Bay Packers */
+.player-avatar.team-GB { background: #003322 !important; }
+
+/* Houston Texans */
+.player-avatar.team-HOU { background: #03203F !important; }
+
+/* Indianapolis Colts */
+.player-avatar.team-IND { background: #002C5F !important; }
+
+/* Jacksonville Jaguars */
+.player-avatar.team-JAX { background: #006778 !important; }
+
+/* Kansas City Chiefs */
+.player-avatar.team-KC { background: #E31837 !important; }
+
+/* Las Vegas Raiders - Using Silver instead of Black */
+.player-avatar.team-LV { background: #A5ACAF !important; }
+
+/* Los Angeles Chargers */
+.player-avatar.team-LAC { background: #0080C6 !important; }
+
+/* Los Angeles Rams */
+.player-avatar.team-LAR { background: #003594 !important; }
+
+/* Miami Dolphins */
+.player-avatar.team-MIA { background: #008E97 !important; }
+
+/* Minnesota Vikings */
+.player-avatar.team-MIN { background: #4F2683 !important; }
+
+/* New England Patriots */
+.player-avatar.team-NE { background: #002244 !important; }
+
+/* New Orleans Saints - Using Gold instead of Black */
+.player-avatar.team-NO { background: #D3BC8D !important; }
+
+/* New York Giants */
+.player-avatar.team-NYG { background: #0D2266 !important; }
+
+/* New York Jets */
+.player-avatar.team-NYJ { background: #003F2D !important; }
+
+/* Philadelphia Eagles */
+.player-avatar.team-PHI { background: #004C55 !important; }
+
+/* Pittsburgh Steelers - Using Gold instead of Black */
+.player-avatar.team-PIT { background: #FFB612 !important; }
+
+/* San Francisco 49ers */
+.player-avatar.team-SF { background: #AA0000 !important; }
+
+/* Seattle Seahawks */
+.player-avatar.team-SEA { background: #002244 !important; }
+
+/* Tampa Bay Buccaneers */
+.player-avatar.team-TB { background: #A71930 !important; }
+
+/* Tennessee Titans */
+.player-avatar.team-TEN { background: #4B92DB !important; }
+
+/* Washington Commanders */
+.player-avatar.team-WSH { background: #5A1414 !important; }
+
+/* -------------------- Team-Colored Glow for Live Players -------------------- */
+/* Arizona Cardinals */
+.player-row.live .player-avatar.team-ARI { box-shadow: 0 0 20px rgba(151, 35, 63, 0.8) !important; }
+
+/* Atlanta Falcons */
+.player-row.live .player-avatar.team-ATL { box-shadow: 0 0 20px rgba(167, 25, 48, 0.8) !important; }
+
+/* Baltimore Ravens - Purple glow */
+.player-row.live .player-avatar.team-BAL { box-shadow: 0 0 20px rgba(36, 23, 115, 0.8) !important; }
+
+/* Buffalo Bills */
+.player-row.live .player-avatar.team-BUF { box-shadow: 0 0 20px rgba(198, 12, 48, 0.8) !important; }
+
+/* Carolina Panthers - Blue glow */
+.player-row.live .player-avatar.team-CAR { box-shadow: 0 0 20px rgba(0, 133, 202, 0.8) !important; }
+
+/* Chicago Bears */
+.player-row.live .player-avatar.team-CHI { box-shadow: 0 0 20px rgba(11, 22, 42, 0.8) !important; }
+
+/* Cincinnati Bengals */
+.player-row.live .player-avatar.team-CIN { box-shadow: 0 0 20px rgba(251, 79, 20, 0.8) !important; }
+
+/* Cleveland Browns */
+.player-row.live .player-avatar.team-CLE { box-shadow: 0 0 20px rgba(88, 43, 32, 0.8) !important; }
+
+/* Dallas Cowboys */
+.player-row.live .player-avatar.team-DAL { box-shadow: 0 0 20px rgba(4, 30, 66, 0.8) !important; }
+
+/* Denver Broncos */
+.player-row.live .player-avatar.team-DEN { box-shadow: 0 0 20px rgba(251, 79, 20, 0.8) !important; }
+
+/* Detroit Lions */
+.player-row.live .player-avatar.team-DET { box-shadow: 0 0 20px rgba(0, 118, 182, 0.8) !important; }
+
+/* Green Bay Packers */
+.player-row.live .player-avatar.team-GB { box-shadow: 0 0 20px rgba(0, 51, 34, 0.8) !important; }
+
+/* Houston Texans */
+.player-row.live .player-avatar.team-HOU { box-shadow: 0 0 20px rgba(3, 32, 63, 0.8) !important; }
+
+/* Indianapolis Colts */
+.player-row.live .player-avatar.team-IND { box-shadow: 0 0 20px rgba(0, 44, 95, 0.8) !important; }
+
+/* Jacksonville Jaguars */
+.player-row.live .player-avatar.team-JAX { box-shadow: 0 0 20px rgba(0, 103, 120, 0.8) !important; }
+
+/* Kansas City Chiefs */
+.player-row.live .player-avatar.team-KC { box-shadow: 0 0 20px rgba(227, 24, 55, 0.8) !important; }
+
+/* Las Vegas Raiders - Silver glow */
+.player-row.live .player-avatar.team-LV { box-shadow: 0 0 20px rgba(165, 172, 175, 0.8) !important; }
+
+/* Los Angeles Chargers */
+.player-row.live .player-avatar.team-LAC { box-shadow: 0 0 20px rgba(0, 128, 198, 0.8) !important; }
+
+/* Los Angeles Rams */
+.player-row.live .player-avatar.team-LAR { box-shadow: 0 0 20px rgba(0, 53, 148, 0.8) !important; }
+
+/* Miami Dolphins */
+.player-row.live .player-avatar.team-MIA { box-shadow: 0 0 20px rgba(0, 142, 151, 0.8) !important; }
+
+/* Minnesota Vikings */
+.player-row.live .player-avatar.team-MIN { box-shadow: 0 0 20px rgba(79, 38, 131, 0.8) !important; }
+
+/* New England Patriots */
+.player-row.live .player-avatar.team-NE { box-shadow: 0 0 20px rgba(0, 34, 68, 0.8) !important; }
+
+/* New Orleans Saints - Gold glow */
+.player-row.live .player-avatar.team-NO { box-shadow: 0 0 20px rgba(211, 188, 141, 0.8) !important; }
+
+/* New York Giants */
+.player-row.live .player-avatar.team-NYG { box-shadow: 0 0 20px rgba(13, 34, 102, 0.8) !important; }
+
+/* New York Jets */
+.player-row.live .player-avatar.team-NYJ { box-shadow: 0 0 20px rgba(0, 63, 45, 0.8) !important; }
+
+/* Philadelphia Eagles */
+.player-row.live .player-avatar.team-PHI { box-shadow: 0 0 20px rgba(0, 76, 85, 0.8) !important; }
+
+/* Pittsburgh Steelers - Gold glow */
+.player-row.live .player-avatar.team-PIT { box-shadow: 0 0 20px rgba(255, 182, 18, 0.8) !important; }
+
+/* San Francisco 49ers */
+.player-row.live .player-avatar.team-SF { box-shadow: 0 0 20px rgba(170, 0, 0, 0.8) !important; }
+
+/* Seattle Seahawks */
+.player-row.live .player-avatar.team-SEA { box-shadow: 0 0 20px rgba(0, 34, 68, 0.8) !important; }
+
+/* Tampa Bay Buccaneers */
+.player-row.live .player-avatar.team-TB { box-shadow: 0 0 20px rgba(167, 25, 48, 0.8) !important; }
+
+/* Tennessee Titans */
+.player-row.live .player-avatar.team-TEN { box-shadow: 0 0 20px rgba(75, 146, 219, 0.8) !important; }
+
+/* Washington Commanders */
+.player-row.live .player-avatar.team-WSH { box-shadow: 0 0 20px rgba(90, 20, 20, 0.8) !important; }
+
+/* Fallback for browsers that support :has() */
+.player-row:has(.player-details:contains("D/ST")) .player-headshot {
+    object-fit: contain;
+    padding: 8px;
+    background: #333;
+}
+
+.player-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    background: #444;
+    color: #fff;
+}
+
+.player-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.player-name {
+    font-weight: bold;
+    font-size: 16px; /* Increased from 14px */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left !important; /* Override MagicMirror center alignment */
+}
+
+.player-details {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 2px;
+    text-align: left !important; /* Override MagicMirror center alignment */
+}
+
+.player-position {
+    background: #444 !important;
+    padding: 2px 4px !important;
+    border-radius: 4px !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
+    width: 35px !important; /* Fixed width for alignment */
+    text-align: center !important; /* Center text within the 35px box */
+    margin-left: 15px !important; /* Exact 15px buffer from score column */
+    margin-right: 0 !important;
+    flex-shrink: 0 !important; /* Prevent any shrinking */
+    box-sizing: border-box !important;
+}
+
+.player-score {
+    font-weight: bold !important;
+    font-size: 20px !important; /* Increased from 16px */
+    text-align: right !important;
+    width: 50px !important; /* Fixed width for consistent alignment */
+    flex-shrink: 0 !important; /* Prevent shrinking */
+    box-sizing: border-box !important;
+    margin-right: 0 !important;
+}
+
+.player-score.projected {
+    color: #888;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+/* -------------------- Game Status -------------------- */
+.game-status {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+    min-width: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-live {
+    color: #4CAF50; /* Green color for LIVE text */
+    text-shadow: 0 0 8px rgba(76, 175, 80, 0.6), 0 0 16px rgba(76, 175, 80, 0.2); /* Glowing shadow effect */
+    font-weight: bold; /* Make LIVE text bold */
+    font-size: 8px; /* Slightly smaller font for LIVE text */
+    margin-right: 3px;
+    animation: livePulse 2s ease-in-out infinite; /* Subtle pulse animation */
+}
+
+.status-complete {
+    color: #2196F3;
+    text-shadow: 0 0 4px rgba(33, 150, 243, 0.3);
+}
+
+.status-upcoming {
+    color: #FF9800;
+    opacity: 0.7;
+}
+
+.status-projected {
+    color: #888;
+    font-size: 10px;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+.status-game-time {
+    color: #888;
+    font-size: 8px;
+    font-weight: normal;
+    opacity: 0.8;
+    line-height: 1.1;
+    text-align: center;
+}
+
+/* Removed time-suffix styling - now just plain text */
+
+/* Subtle pulse animation for live games */
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 1; 
+    }
+    50% { 
+        transform: scale(1.1); 
+        opacity: 0.8; 
+    }
+}
+
+/* Pulse animation for LIVE text */
+@keyframes livePulse {
+    0%, 100% { 
+        opacity: 1; 
+        text-shadow: 0 0 8px rgba(76, 175, 80, 0.8), 0 0 16px rgba(76, 175, 80, 0.4);
+    }
+    50% { 
+        opacity: 0.7; 
+        text-shadow: 0 0 12px rgba(76, 175, 80, 1), 0 0 24px rgba(76, 175, 80, 0.6);
+    }
+}
+
+/* -------------------- Team Stats -------------------- */
+.team-stats {
+    margin-top: 8px; /* Ensure it's visible */
+    padding: 8px 0; /* Give it proper space */
+    border-top: none;
+    border-bottom: none;
+    height: 15px; /* Fixed height so it's always visible */
+}
+
+.team-stats .player-avatar {
+    display: none; /* Completely remove avatar space for stats row */
+}
+
+.team-stats .player-info .player-name {
+    font-size: 11px;
+    color: #666;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+.team-stats .player-position {
+    visibility: hidden; /* Hide position space but maintain layout */
+}
+
+.team-stats .player-score {
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+.team-stats .game-status {
+    visibility: hidden; /* Hide status space but maintain layout */
+}
+
+
+.team-stats .player-row {
+    margin-top: 0px !important; /* Fixed height so it's always visible */
+    padding-top: 0px !important;
+}
+
+/* -------------------- Transparent Background Option -------------------- */
+.mmm-fantasy-tracker.transparent-bg .matchup-container {
+    background: transparent !important; /* Remove dark background */
+    box-shadow: none !important; /* Remove shadow */
+    border: 1px solid rgba(255,255,255,0.1) !important; /* Subtle border for definition */
+}
+
+.mmm-fantasy-tracker.transparent-bg .matchup-header {
+    background: transparent !important; /* Remove header gradient */
+    border-bottom: 1px solid rgba(255,255,255,0.2) !important; /* Subtle separator */
+}
+
+/* -------------------- Layout Elements -------------------- */
+.divider {
+    width: 2px;
+    background: linear-gradient(180deg, transparent, #444, transparent);
+}
+
+.refresh-info {
+    text-align: center;
+    padding: 4px; /* Reduced from 15px */
+    font-size: 10px; /* Smaller font */
+    color: #666;
+    border-top: 1px solid #333;
+    margin-top: 5px; /* Small separation */
+}
+
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}

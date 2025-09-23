@@ -1,0 +1,38 @@
+/*
+ * MMM-JokesAndFacts
+ * Custom CSS for combined jokes and facts module
+ */
+
+.jokes-and-facts-wrapper {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.content-text {
+    color: white;
+    line-height: 1.4;
+    margin: 10px 0;
+}
+
+.content-type-label {
+    color: #aaa;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Animation for smooth transitions */
+.jokes-and-facts-wrapper .content-text {
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Responsive font sizing */
+@media (max-width: 600px) {
+    .jokes-and-facts-wrapper .content-text {
+        font-size: 1.2rem !important;
+    }
+    
+    .content-type-label {
+        font-size: 0.7rem !important;
+    }
+}

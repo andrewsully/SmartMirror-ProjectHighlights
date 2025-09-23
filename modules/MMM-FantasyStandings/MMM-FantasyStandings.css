@@ -1,0 +1,246 @@
+/* MMM-FantasyStandings Module CSS */
+/* Extracted from your working fantasy-standings-clean2 design */
+
+.MMM-FantasyStandings .fantasy-standings {
+    width: 240px !important; /* Made narrower to accommodate smaller stats */
+    height: 516px !important;
+    color: #fff !important;
+    font-family: 'Roboto', 'Segoe UI', sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.0 !important;
+}
+
+.MMM-FantasyStandings .fantasy-standings * {
+    /* Force all child elements to inherit font styling */
+    font-family: inherit !important;
+    line-height: inherit !important;
+}
+
+.MMM-FantasyStandings .standings-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+/* 11 equal rows: 516px ÷ 11 = 46.9px per row - FIXED HEIGHT */
+.MMM-FantasyStandings .standings-table tr {
+    height: 46.9px !important;
+    max-height: 46.9px !important;
+}
+
+.MMM-FantasyStandings .standings-table td {
+    padding: 0 !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Left half: 240px ÷ 2 = 120px - FIXED WIDTH */
+.MMM-FantasyStandings .left-side {
+    width: 120px !important;
+    position: relative !important;
+    height: 44px !important;
+    padding-right: 0 !important; /* Remove any right padding */
+}
+
+/* Right half: 240px ÷ 2 = 120px - FIXED WIDTH */
+.MMM-FantasyStandings .right-side {
+    width: 120px !important;
+    padding-left: 0 !important; /* Remove any left padding */
+}
+
+/* Circular team photo container - positioned at left edge with half hanging over */
+.MMM-FantasyStandings .team-photo-container {
+    width: 42px !important; /* Slightly smaller to fit within row */
+    height: 42px !important; /* Slightly smaller to fit within row */
+    border-radius: 50% !important; /* Make it perfectly circular */
+    overflow: hidden !important; /* Hide overflow to ensure perfect circle */
+    position: absolute !important;
+    left: -21px !important; /* Half the width (21px) to center at left edge */
+    top: 1px !important; /* Slight vertical centering */
+    background-color: rgba(255, 182, 193, 0.6) !important; /* Default pastel pink */
+    border: 2px solid #fff !important; /* White stroke */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Dynamic team colors based on standings order (1st place = pink, 2nd = blue, etc.) */
+.MMM-FantasyStandings .team-entry:nth-child(1) .team-photo-container { background-color: rgba(255, 182, 193, 0.6) !important; } /* Pastel Pink */
+.MMM-FantasyStandings .team-entry:nth-child(2) .team-photo-container { background-color: rgba(173, 216, 230, 0.6) !important; } /* Pastel Blue */
+.MMM-FantasyStandings .team-entry:nth-child(3) .team-photo-container { background-color: rgba(255, 218, 185, 0.6) !important; } /* Pastel Orange */
+.MMM-FantasyStandings .team-entry:nth-child(4) .team-photo-container { background-color: rgba(221, 160, 221, 0.6) !important; } /* Pastel Purple */
+.MMM-FantasyStandings .team-entry:nth-child(5) .team-photo-container { background-color: rgba(255, 255, 224, 0.6) !important; } /* Pastel Yellow */
+.MMM-FantasyStandings .team-entry:nth-child(6) .team-photo-container { background-color: rgba(144, 238, 144, 0.6) !important; } /* Pastel Green */
+.MMM-FantasyStandings .team-entry:nth-child(7) .team-photo-container { background-color: rgba(255, 192, 203, 0.6) !important; } /* Pastel Rose */
+.MMM-FantasyStandings .team-entry:nth-child(8) .team-photo-container { background-color: rgba(255, 160, 122, 0.6) !important; } /* Pastel Coral */
+.MMM-FantasyStandings .team-entry:nth-child(9) .team-photo-container { background-color: rgba(176, 224, 230, 0.6) !important; } /* Pastel Turquoise */
+.MMM-FantasyStandings .team-entry:nth-child(10) .team-photo-container { background-color: rgba(255, 228, 196, 0.6) !important; } /* Pastel Peach */
+
+/* Fallback colors for leagues with more than 10 teams */
+.MMM-FantasyStandings .team-entry:nth-child(11) .team-photo-container { background-color: rgba(230, 230, 250, 0.6) !important; } /* Lavender */
+.MMM-FantasyStandings .team-entry:nth-child(12) .team-photo-container { background-color: rgba(250, 240, 230, 0.6) !important; } /* Linen */
+
+.MMM-FantasyStandings .team-photo {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Cover the entire circle */
+    border-radius: 50% !important; /* Make the image itself circular */
+    margin: 0 !important; /* Remove all margins */
+    padding: 0 !important; /* Remove all padding */
+    position: relative !important;
+    object-position: center !important; /* Center the image within the circle */
+}
+
+/* Team name container - holds both team name and owner name */
+.MMM-FantasyStandings .team-name-container {
+    padding-left: 26px !important; /* Adjusted for smaller logo at left edge (21px visible + 5px spacing) */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    height: 44px !important;
+    max-height: 44px !important;
+    overflow: hidden !important;
+}
+
+/* Team name - styled like top text "SUN" from screenshot, max 2 lines */
+.MMM-FantasyStandings .team-name {
+    color: #ffffff !important; /* Pure white like SUN */
+    font-size: 11px !important; /* Decreased font size */
+    font-weight: 400 !important; /* Decreased font weight */
+    font-stretch: condensed !important; /* Condensed/tall and skinny letters */
+    line-height: 1.1 !important; /* Slightly more spacing for two lines */
+    text-transform: uppercase !important; /* All caps like SUN */
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3) !important; /* Subtle soft glow effect */
+    margin-bottom: 1px !important; /* Small gap between team name and owner */
+    text-align: left !important; /* Force left alignment */
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important; /* Exactly 2 lines max */
+    -webkit-box-orient: vertical !important;
+    text-overflow: ellipsis !important;
+    white-space: normal !important; /* Allow line wrapping */
+}
+
+/* Owner name - styled like bottom text "8pm" from screenshot */
+.MMM-FantasyStandings .owner-name {
+    color: #cccccc !important; /* Lighter grey like 8pm */
+    font-size: 10px !important; /* Smaller to fit in remaining space */
+    font-weight: bolder !important; /* Bolder weight as you adjusted */
+    line-height: 1 !important; /* Tight line spacing */
+    text-align: left !important;
+    text-transform: none !important; /* Mixed case like 8pm (not all caps) */
+    text-shadow: none !important; /* No glow effect like 8pm */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    display: block !important; /* Ensure it's visible */
+    opacity: 1 !important; /* Make sure it's not hidden */
+}
+
+/* Stats container with 3 columns - Win/Loss narrower, PF wider */
+.MMM-FantasyStandings .stats-container {
+    display: grid !important;
+    grid-template-columns: 0.5fr 0.5fr 1fr !important; /* Win and Loss half width, PF full width */
+    gap: 0px !important; /* No spacing between columns */
+    height: 100% !important;
+    text-align: center !important;
+    padding: 0 !important; /* Remove all padding to align with name area */
+}
+
+.MMM-FantasyStandings .stat-value {
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Alternating row background colors */
+.MMM-FantasyStandings .standings-table tr:nth-child(even) {
+    background-color: rgba(51, 51, 51, 0.4) !important; /* Every other row */
+}
+
+/* Your team row - subtle inner glow effect */
+.MMM-FantasyStandings .standings-table .your-team-row {
+    position: relative !important;
+}
+
+.MMM-FantasyStandings .standings-table .your-team-row::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 2px !important;
+    left: 2px !important;
+    right: 2px !important;
+    bottom: 2px !important;
+    box-shadow: inset 0 0 15px rgba(0, 150, 255, 0.8) !important; /* More prominent inner glow */
+    pointer-events: none !important;
+    border-radius: 3px !important;
+    z-index: -1 !important; /* Place behind all content including profile image */
+}
+
+/* FORCE header row to same height as all other rows */
+.MMM-FantasyStandings .header-row {
+    height: 46.9px !important;
+    max-height: 46.9px !important;
+}
+
+.MMM-FantasyStandings .header-row .left-side {
+    position: relative !important;
+    height: 46.9px !important;
+    max-height: 46.9px !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+}
+
+/* Arrow effect - downward slope from left to right */
+.MMM-FantasyStandings .header-row .right-side:before {
+    content: "" !important;
+    position: absolute !important;
+    left: -20px !important;
+    top: 23.45px !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-style: solid !important;
+    border-width: 0 0 23.45px 20px !important;
+    border-color: transparent transparent #fff transparent !important;
+    z-index: 3 !important;
+}
+
+.MMM-FantasyStandings .header-row .right-side {
+    position: relative !important;
+    height: 46.9px !important;
+    max-height: 46.9px !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+}
+
+/* Bottom half of right side - white background with black column labels */
+.MMM-FantasyStandings .header-right-bottom {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 50% !important;
+    background: #fff !important;
+    display: grid !important;
+    grid-template-columns: 0.5fr 0.5fr 1fr !important; /* Match the stats grid layout */
+    text-align: center !important;
+    align-items: center !important; /* Center headers vertically */
+}
+
+.MMM-FantasyStandings .header-stat {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    color: #000 !important;
+    height: 100% !important; /* Ensure full height for proper centering */
+}
+
+.MMM-FantasyStandings .loading {
+    text-align: center !important;
+    padding: 50px !important;
+    color: #aaa !important;
+    font-size: 14px !important;
+}

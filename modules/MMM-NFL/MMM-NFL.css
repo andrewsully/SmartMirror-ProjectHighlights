@@ -1,0 +1,45 @@
+@keyframes mmm-nfl-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.MMM-NFL .table,
+.MMM-Modal .MMM-NFL.statistics.table {
+    border-spacing: 10px 0;
+    border-collapse: separate;
+    text-align: center;
+}
+
+.MMM-NFL .logo,
+.MMM-Modal .MMM-NFL.statistics .logo {
+    margin-top: 3px;
+    height: 25px;
+}
+
+.MMM-NFL .gray,
+.MMM-Modal .MMM-NFL.statistics .gray {
+    filter: grayscale(100%);
+}
+
+.MMM-NFL .row {
+    vertical-align: middle;
+}
+
+.MMM-NFL .redzone {
+    animation: mmm-nfl-pulse 2s infinite;
+}
+
+.MMM-NFL .live {
+    font-size: 10px;
+    line-height: 15px;
+    display: block;
+}
+
+.MMM-NFL .ball-home {
+    margin-right: 10px;
+}
+
+.MMM-NFL .ball-away {
+    margin-left: 10px;
+}

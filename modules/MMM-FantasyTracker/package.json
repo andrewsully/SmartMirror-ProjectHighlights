@@ -1,0 +1,31 @@
+{
+  "name": "mmm-fantasy-tracker",
+  "version": "1.0.0",
+  "description": "Live fantasy football matchup tracker for MagicMirror with ESPN API integration",
+  "main": "MMM-FantasyTracker.js",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "MagicMirror",
+    "Module",
+    "Fantasy Football",
+    "ESPN",
+    "Sports",
+    "NFL",
+    "Live Scores"
+  ],
+  "author": "Andrew Sullivan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrew24sull/fantasy-football-tracker"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "python3": ">=3.8"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
