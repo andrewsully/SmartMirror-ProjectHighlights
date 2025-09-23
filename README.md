@@ -96,10 +96,14 @@
 
 | View | Image |
 |---|---|
-| **Live Scores (compact)** | <img src="examples/live_scores_small.png" width="360" alt="Live Scores Compact"> |
-| **Fantasy Standings** | <img src="examples/fantasy_standings.png" width="360" alt="Fantasy Standings"> |
-| **Mirror on Fantasy Page (photo)** | <img src="examples/photo%20of%20mirror%20on%20fantasy%20age.png" width="420" alt="Fantasy page on device"> |
-| **Clown Opponent Mode (easter egg)** | <img src="examples/clown%20mode%20example.png" width="360" alt="Clown Mode"> |
+| **Mirror on Fantasy Page (photo)** | <img src="examples/photo%20of%20mirror%20on%20fantasy%20age.png" width="420" alt="Fantasy page on device"><br><em>Features a custom live head-to-head matchup feed with real-time in-game player scoring updates (top), standings for your fantasy football league (bottom left), and results, future matchups, and live scores of all NFL games for the current week.</em> |
+
+<table>
+<tr>
+<td width="50%"><img src="examples/live_scores_small.png" width="210" alt="Live Scores Compact"><br><em>Live Scores (compact)</em></td>
+<td width="50%"><img src="examples/fantasy_standings.png" width="210" alt="ESPN Fantasy Football League Standings"><br><em>ESPN Fantasy Football League Standings</em></td>
+</tr>
+</table>
 
 ---
 
