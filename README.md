@@ -96,7 +96,7 @@
 
 | View | Image |
 |---|---|
-| **Mirror on Fantasy Page (photo)** | <img src="examples/photo%20of%20mirror%20on%20fantasy%20age.png" width="420" alt="Fantasy page on device"><br><em>Features a custom live head-to-head matchup feed with real-time in-game player scoring updates (top), standings for your fantasy football league (bottom left), and results, future matchups, and live scores of all NFL games for the current week.</em> |
+| **Mirror on Fantasy Page (photo)** | <img src="examples/photo%20of%20mirror%20on%20fantasy%20age.png" width="420" alt="Fantasy page on device"><br><em>Features a custom live head-to-head matchup feed with real-time in-game player scoring updates (top), standings for your fantasy football league (bottom left), and results, future matchups, and live scores of all NFL games for the current week (bottom right).</em> |
 
 <table>
 <tr>
