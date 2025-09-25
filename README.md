@@ -23,6 +23,8 @@
 
 ## TL;DR — What I Actually Built
 
+<img src="examples/allslides.png" width="100%" alt="Smart Mirror Portfolio - All Pages Overview">
+
 **Software**
 - Real‑time **voice UI** with custom wake word (“Janice”) and **word‑timed on‑screen transcription**
 - **Scene orchestration** engine with context‑aware pages (music, sports, fantasy, news, weather)
